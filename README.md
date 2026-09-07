@@ -1,1 +1,2 @@
 # Hybrid-QuantumClassical-EfficientNetDVQC-Model-for-Multi-Region-Bone-Fracture-Classification
+This project introduces a hybrid quantum-classical machine learning framework designed to improve the accuracy and efficiency of identifying bone fractures across multiple anatomical regions. By integrating the feature extraction power of an EfficientNet architecture with a Deep Variational Quantum Circuit (DVQC), the model leverages quantum computing principles to process complex X-ray images, optimizing diagnostic performance while reducing computational overhead.
