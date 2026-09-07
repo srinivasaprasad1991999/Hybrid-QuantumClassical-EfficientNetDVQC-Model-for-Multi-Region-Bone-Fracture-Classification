@@ -1,2 +1,1 @@
 # Hybrid-QuantumClassical-EfficientNetDVQC-Model-for-Multi-Region-Bone-Fracture-Classification
-This paper presents a hybrid quantum-classical EfficientNet-B0-DVQC framework for binary bone fracture classification from X-ray images EfficientNet-B0 extracts features which are compressed and processed by a four-qubit variational quantum circuit On the Bone Fracture Multi-Region X-ray dataset, the model achieves 99.01% accuracy and 0.995 ROC-AUC
