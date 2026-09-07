@@ -1,0 +1,466 @@
+# ============================================================
+# EFFICIENTNET-B0 + 4D CLASSICAL HEAD
+#
+# EfficientNet-B0
+#       ↓
+# 1280 features
+#       ↓
+# Linear(1280 → 4)
+#       ↓
+# Tanh
+#       ↓
+# Linear(4 → 1)
+#
+# FIVE SEEDS:
+# [42, 52, 62, 72, 82]
+#
+# Metrics:
+# Accuracy, Sensitivity, Specificity, Precision,
+# F1-Score, Error Rate, ROC-AUC
+#
+# Outputs:
+# 1. Per-seed metrics
+# 2. Mean ± SD metrics
+# 3. Confusion matrices
+# 4. ROC curves
+# 5. Accuracy curves
+# 6. Loss curves
+# 7. Time for each seed
+# 8. Parameter information
+# ============================================================
+
+
+
+
+
+Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+
+Seeds used:
+[42, 52, 62, 72, 82]
+
+Dataset paths:
+Train: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/train
+Validation: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/val
+Test: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/test
+
+Dataset directories found successfully.
+
+Class information:
+Train classes: ['fractured', 'not fractured']
+Validation classes: ['fractured', 'not fractured']
+Test classes: ['fractured', 'not fractured']
+
+Class-to-index mapping:
+{'fractured': 0, 'not fractured': 1}
+
+Dataset sizes:
+Training: 9246
+Validation: 829
+Testing: 506
+
+Using Device: cuda
+
+==============================================
+MODEL PARAMETER INFORMATION
+==============================================
+Total parameters: 4,012,677
+Trainable parameters: 4,012,677
+Classical head parameters: 5,129
+==============================================
+
+
+======================================================================
+STARTING SEED 42
+======================================================================
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 1/10 | Train Loss: 0.4031 | Val Loss: 0.3150 | Train Acc: 90.11% | Val Acc: 94.93%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 2/10 | Train Loss: 0.2526 | Val Loss: 0.2710 | Train Acc: 98.90% | Val Acc: 97.35%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 3/10 | Train Loss: 0.2304 | Val Loss: 0.2464 | Train Acc: 99.44% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 4/10 | Train Loss: 0.2193 | Val Loss: 0.2454 | Train Acc: 99.60% | Val Acc: 98.43%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 5/10 | Train Loss: 0.2176 | Val Loss: 0.2399 | Train Acc: 99.69% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 6/10 | Train Loss: 0.2172 | Val Loss: 0.2391 | Train Acc: 99.63% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 7/10 | Train Loss: 0.2161 | Val Loss: 0.2399 | Train Acc: 99.69% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 8/10 | Train Loss: 0.2157 | Val Loss: 0.2388 | Train Acc: 99.69% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 9/10 | Train Loss: 0.2146 | Val Loss: 0.2378 | Train Acc: 99.78% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 10/10 | Train Loss: 0.2148 | Val Loss: 0.2379 | Train Acc: 99.69% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+----------------------------------------------------------------------
+Seed 42 completed.
+Time taken for Seed 42: 16.38 minutes
+Best Validation Loss: 0.2378
+----------------------------------------------------------------------
+
+
+======================================================================
+STARTING SEED 52
+======================================================================
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 1/10 | Train Loss: 0.4879 | Val Loss: 0.3860 | Train Acc: 86.30% | Val Acc: 95.05%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 2/10 | Train Loss: 0.3637 | Val Loss: 0.3536 | Train Acc: 98.90% | Val Acc: 96.26%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 3/10 | Train Loss: 0.3373 | Val Loss: 0.3298 | Train Acc: 99.42% | Val Acc: 97.47%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 4/10 | Train Loss: 0.3273 | Val Loss: 0.3254 | Train Acc: 99.33% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 5/10 | Train Loss: 0.3237 | Val Loss: 0.3235 | Train Acc: 99.52% | Val Acc: 97.71%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 6/10 | Train Loss: 0.3214 | Val Loss: 0.3190 | Train Acc: 99.65% | Val Acc: 98.07%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 7/10 | Train Loss: 0.3207 | Val Loss: 0.3193 | Train Acc: 99.59% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 8/10 | Train Loss: 0.3205 | Val Loss: 0.3182 | Train Acc: 99.63% | Val Acc: 98.07%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 9/10 | Train Loss: 0.3208 | Val Loss: 0.3184 | Train Acc: 99.58% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 10/10 | Train Loss: 0.3197 | Val Loss: 0.3170 | Train Acc: 99.68% | Val Acc: 97.95%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+----------------------------------------------------------------------
+Seed 52 completed.
+Time taken for Seed 52: 8.88 minutes
+Best Validation Loss: 0.3170
+----------------------------------------------------------------------
+
+
+======================================================================
+STARTING SEED 62
+======================================================================
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 1/10 | Train Loss: 0.4668 | Val Loss: 0.3917 | Train Acc: 88.38% | Val Acc: 94.81%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 2/10 | Train Loss: 0.3390 | Val Loss: 0.3550 | Train Acc: 98.68% | Val Acc: 96.38%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 3/10 | Train Loss: 0.3132 | Val Loss: 0.3338 | Train Acc: 99.32% | Val Acc: 97.10%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 4/10 | Train Loss: 0.3020 | Val Loss: 0.3290 | Train Acc: 99.49% | Val Acc: 97.35%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 5/10 | Train Loss: 0.3004 | Val Loss: 0.3276 | Train Acc: 99.53% | Val Acc: 97.35%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 6/10 | Train Loss: 0.2976 | Val Loss: 0.3235 | Train Acc: 99.65% | Val Acc: 97.95%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 7/10 | Train Loss: 0.2962 | Val Loss: 0.3243 | Train Acc: 99.70% | Val Acc: 97.59%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 8/10 | Train Loss: 0.2961 | Val Loss: 0.3249 | Train Acc: 99.69% | Val Acc: 97.23%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 9/10 | Train Loss: 0.2962 | Val Loss: 0.3209 | Train Acc: 99.64% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 10/10 | Train Loss: 0.2955 | Val Loss: 0.3244 | Train Acc: 99.71% | Val Acc: 97.23%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+----------------------------------------------------------------------
+Seed 62 completed.
+Time taken for Seed 62: 8.95 minutes
+Best Validation Loss: 0.3209
+----------------------------------------------------------------------
+
+
+======================================================================
+STARTING SEED 72
+======================================================================
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 1/10 | Train Loss: 0.4225 | Val Loss: 0.3242 | Train Acc: 88.47% | Val Acc: 94.69%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 2/10 | Train Loss: 0.2728 | Val Loss: 0.2840 | Train Acc: 98.89% | Val Acc: 96.86%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 3/10 | Train Loss: 0.2516 | Val Loss: 0.2590 | Train Acc: 99.29% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 4/10 | Train Loss: 0.2398 | Val Loss: 0.2565 | Train Acc: 99.60% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 5/10 | Train Loss: 0.2393 | Val Loss: 0.2536 | Train Acc: 99.50% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 6/10 | Train Loss: 0.2367 | Val Loss: 0.2515 | Train Acc: 99.62% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 7/10 | Train Loss: 0.2346 | Val Loss: 0.2511 | Train Acc: 99.72% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 8/10 | Train Loss: 0.2346 | Val Loss: 0.2508 | Train Acc: 99.72% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 9/10 | Train Loss: 0.2356 | Val Loss: 0.2508 | Train Acc: 99.62% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 10/10 | Train Loss: 0.2351 | Val Loss: 0.2506 | Train Acc: 99.64% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+----------------------------------------------------------------------
+Seed 72 completed.
+Time taken for Seed 72: 9.06 minutes
+Best Validation Loss: 0.2506
+----------------------------------------------------------------------
+
+
+======================================================================
+STARTING SEED 82
+======================================================================
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 1/10 | Train Loss: 0.4463 | Val Loss: 0.3416 | Train Acc: 88.20% | Val Acc: 95.05%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 2/10 | Train Loss: 0.2975 | Val Loss: 0.3059 | Train Acc: 98.84% | Val Acc: 96.26%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 3/10 | Train Loss: 0.2751 | Val Loss: 0.2780 | Train Acc: 99.30% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 4/10 | Train Loss: 0.2630 | Val Loss: 0.2748 | Train Acc: 99.61% | Val Acc: 98.43%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 5/10 | Train Loss: 0.2631 | Val Loss: 0.2704 | Train Acc: 99.43% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 6/10 | Train Loss: 0.2596 | Val Loss: 0.2664 | Train Acc: 99.57% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 7/10 | Train Loss: 0.2580 | Val Loss: 0.2657 | Train Acc: 99.69% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 8/10 | Train Loss: 0.2578 | Val Loss: 0.2661 | Train Acc: 99.70% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 9/10 | Train Loss: 0.2571 | Val Loss: 0.2655 | Train Acc: 99.76% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 10/10 | Train Loss: 0.2577 | Val Loss: 0.2654 | Train Acc: 99.68% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+----------------------------------------------------------------------
+Seed 82 completed.
+Time taken for Seed 82: 9.09 minutes
+Best Validation Loss: 0.2654
+----------------------------------------------------------------------
+
+
+======================================================================
+ALL FIVE SEEDS COMPLETED
+======================================================================
+Total experiment time: 52.36 minutes
+
+
+======================================================================
+PER-SEED PERFORMANCE
+======================================================================
+ Seed    Dataset          Metric     Value
+   42   Training    Accuracy (%) 99.859399
+   42 Validation    Accuracy (%) 98.673100
+   42    Testing    Accuracy (%) 98.616601
+   42   Training Sensitivity (%) 99.935345
+   42 Validation Sensitivity (%) 99.390244
+   42    Testing Sensitivity (%) 98.880597
+   42   Training Specificity (%) 99.782892
+   42 Validation Specificity (%) 97.626113
+   42    Testing Specificity (%) 98.319328
+   42   Training   Precision (%) 99.784807
+   42 Validation   Precision (%) 98.390342
+   42    Testing   Precision (%) 98.513011
+   42   Training    F1-Score (%) 99.860019
+   42 Validation    F1-Score (%) 98.887765
+   42    Testing    F1-Score (%) 98.696462
+   42   Training  Error Rate (%)  0.140601
+   42 Validation  Error Rate (%)  1.326900
+   42    Testing  Error Rate (%)  1.383399
+   42   Training         ROC-AUC  0.999963
+   42 Validation         ROC-AUC  0.998329
+   42    Testing         ROC-AUC  0.998981
+   52   Training    Accuracy (%) 99.794506
+   52 Validation    Accuracy (%) 97.949337
+   52    Testing    Accuracy (%) 98.023715
+   52   Training Sensitivity (%) 99.784483
+   52 Validation Sensitivity (%) 98.780488
+   52    Testing Sensitivity (%) 97.761194
+   52   Training Specificity (%) 99.804603
+   52 Validation Specificity (%) 96.735905
+   52    Testing Specificity (%) 98.319328
+   52   Training   Precision (%) 99.805993
+   52 Validation   Precision (%) 97.786720
+   52    Testing   Precision (%) 98.496241
+   52   Training    F1-Score (%) 99.795237
+   52 Validation    F1-Score (%) 98.281092
+   52    Testing    F1-Score (%) 98.127341
+   52   Training  Error Rate (%)  0.205494
+   52 Validation  Error Rate (%)  2.050663
+   52    Testing  Error Rate (%)  1.976285
+   52   Training         ROC-AUC  0.999625
+   52 Validation         ROC-AUC  0.995688
+   52    Testing         ROC-AUC  0.992122
+   62   Training    Accuracy (%) 99.870214
+   62 Validation    Accuracy (%) 98.190591
+   62    Testing    Accuracy (%) 98.023715
+   62   Training Sensitivity (%) 99.870690
+   62 Validation Sensitivity (%) 98.780488
+   62    Testing Sensitivity (%) 97.761194
+   62   Training Specificity (%) 99.869735
+   62 Validation Specificity (%) 97.329377
+   62    Testing Specificity (%) 98.319328
+   62   Training   Precision (%) 99.870690
+   62 Validation   Precision (%) 98.181818
+   62    Testing   Precision (%) 98.496241
+   62   Training    F1-Score (%) 99.870690
+   62 Validation    F1-Score (%) 98.480243
+   62    Testing    F1-Score (%) 98.127341
+   62   Training  Error Rate (%)  0.129786
+   62 Validation  Error Rate (%)  1.809409
+   62    Testing  Error Rate (%)  1.976285
+   62   Training         ROC-AUC  0.999797
+   62 Validation         ROC-AUC  0.995881
+   62    Testing         ROC-AUC  0.993541
+   72   Training    Accuracy (%) 99.848583
+   72 Validation    Accuracy (%) 98.311218
+   72    Testing    Accuracy (%) 97.233202
+   72   Training Sensitivity (%) 99.806034
+   72 Validation Sensitivity (%) 97.967480
+   72    Testing Sensitivity (%) 96.268657
+   72   Training Specificity (%) 99.891446
+   72 Validation Specificity (%) 98.813056
+   72    Testing Specificity (%) 98.319328
+   72   Training   Precision (%) 99.892148
+   72 Validation   Precision (%) 99.176955
+   72    Testing   Precision (%) 98.473282
+   72   Training    F1-Score (%) 99.849073
+   72 Validation    F1-Score (%) 98.568507
+   72    Testing    F1-Score (%) 97.358491
+   72   Training  Error Rate (%)  0.151417
+   72 Validation  Error Rate (%)  1.688782
+   72    Testing  Error Rate (%)  2.766798
+   72   Training         ROC-AUC  0.999769
+   72 Validation         ROC-AUC  0.995893
+   72    Testing         ROC-AUC  0.992804
+   82   Training    Accuracy (%) 99.848583
+   82 Validation    Accuracy (%) 98.793727
+   82    Testing    Accuracy (%) 98.221344
+   82   Training Sensitivity (%) 99.870690
+   82 Validation Sensitivity (%) 98.983740
+   82    Testing Sensitivity (%) 98.134328
+   82   Training Specificity (%) 99.826314
+   82 Validation Specificity (%) 98.516320
+   82    Testing Specificity (%) 98.319328
+   82   Training   Precision (%) 99.827660
+   82 Validation   Precision (%) 98.983740
+   82    Testing   Precision (%) 98.501873
+   82   Training    F1-Score (%) 99.849170
+   82 Validation    F1-Score (%) 98.983740
+   82    Testing    F1-Score (%) 98.317757
+   82   Training  Error Rate (%)  0.151417
+   82 Validation  Error Rate (%)  1.206273
+   82    Testing  Error Rate (%)  1.778656
+   82   Training         ROC-AUC  0.999976
+   82 Validation         ROC-AUC  0.998703
+   82    Testing         ROC-AUC  0.997727
+
+
+======================================================================
+PERFORMANCE COMPARISON TABLE - MEAN ± SD
+======================================================================
+         Metric     Training   Validation      Testing
+   Accuracy (%) 99.84 ± 0.03 98.38 ± 0.35 98.02 ± 0.50
+Sensitivity (%) 99.85 ± 0.06 98.78 ± 0.52 97.76 ± 0.95
+Specificity (%) 99.83 ± 0.05 97.80 ± 0.85 98.32 ± 0.00
+  Precision (%) 99.84 ± 0.04 98.50 ± 0.57 98.50 ± 0.01
+   F1-Score (%) 99.84 ± 0.03 98.64 ± 0.29 98.13 ± 0.49
+ Error Rate (%)  0.16 ± 0.03  1.62 ± 0.35  1.98 ± 0.50
+        ROC-AUC  1.00 ± 0.00  1.00 ± 0.00  1.00 ± 0.00
+
+
+======================================================================
+TIME TAKEN FOR EACH SEED
+======================================================================
+ Seed  Time (minutes)
+   42       16.381140
+   52        8.884036
+   62        8.947064
+   72        9.058674
+   82        9.090579
+
+
+
+
+
+
+================================================================================
+FINAL MODEL SUMMARY
+================================================================================
+Model:
+EfficientNet-B0 → 1280 features → Linear(1280→4) → Tanh → Linear(4→1)
+
+Seeds:
+[42, 52, 62, 72, 82]
+
+Total parameters:
+4,012,677
+
+Trainable parameters:
+4,012,677
+
+Classical head parameters:
+5,129
+
+Total experiment time:
+52.36 minutes
+
+Performance:
+         Metric     Training   Validation      Testing
+   Accuracy (%) 99.84 ± 0.03 98.38 ± 0.35 98.02 ± 0.50
+Sensitivity (%) 99.85 ± 0.06 98.78 ± 0.52 97.76 ± 0.95
+Specificity (%) 99.83 ± 0.05 97.80 ± 0.85 98.32 ± 0.00
+  Precision (%) 99.84 ± 0.04 98.50 ± 0.57 98.50 ± 0.01
+   F1-Score (%) 99.84 ± 0.03 98.64 ± 0.29 98.13 ± 0.49
+ Error Rate (%)  0.16 ± 0.03  1.62 ± 0.35  1.98 ± 0.50
+        ROC-AUC  1.00 ± 0.00  1.00 ± 0.00  1.00 ± 0.00
+
+
+================================================================================
+EXPERIMENT COMPLETED SUCCESSFULLY
+================================================================================
