@@ -1,0 +1,724 @@
+# ============================================================
+# EFFICIENTNET-B0 BASELINE
+# FIVE-SEED EXPERIMENT
+#
+# ARCHITECTURE:
+#
+# EfficientNet-B0
+#       ↓
+# 1280 features
+#       ↓
+# Dropout(0.2)
+#       ↓
+# Linear(1280 → 1)
+#       ↓
+# Sigmoid (evaluation)
+#
+# SEEDS:
+# [42, 52, 62, 72, 82]
+#
+# RESULTS:
+# Training + Validation + Testing
+# Accuracy
+# Sensitivity
+# Specificity
+# Precision
+# F1-Score
+# Error Rate
+# ROC-AUC
+# Mean ± SD
+# Confusion Matrices
+# ROC Curves
+# Accuracy Curves
+# Loss Curves
+# Time for each seed
+# ============================================================Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+
+Dataset found at:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification
+
+Using Device: cuda
+GPU: Tesla T4
+
+============================================================
+DATASET INFORMATION
+============================================================
+Training samples   : 9246
+Validation samples : 829
+Testing samples    : 506
+Classes            : ['fractured', 'not fractured']
+Class mapping      : {'fractured': 0, 'not fractured': 1}
+
+
+======================================================================
+STARTING SEED 42
+======================================================================
+
+Seed 42 | Epoch 1/10
+Train Loss: 0.2799 | Val Loss: 0.1261
+Train Acc: 89.90% | Val Acc: 94.69%
+Epoch Time: 3.43 minutes
+
+Seed 42 | Epoch 2/10
+Train Loss: 0.0414 | Val Loss: 0.0583
+Train Acc: 98.80% | Val Acc: 98.07%
+Epoch Time: 1.01 minutes
+
+Seed 42 | Epoch 3/10
+Train Loss: 0.0213 | Val Loss: 0.0518
+Train Acc: 99.41% | Val Acc: 98.19%
+Epoch Time: 1.01 minutes
+
+Seed 42 | Epoch 4/10
+Train Loss: 0.0141 | Val Loss: 0.0469
+Train Acc: 99.72% | Val Acc: 98.19%
+Epoch Time: 1.03 minutes
+
+Seed 42 | Epoch 5/10
+Train Loss: 0.0119 | Val Loss: 0.0443
+Train Acc: 99.73% | Val Acc: 98.19%
+Epoch Time: 1.01 minutes
+
+Seed 42 | Epoch 6/10
+Train Loss: 0.0112 | Val Loss: 0.0420
+Train Acc: 99.72% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 42 | Epoch 7/10
+Train Loss: 0.0085 | Val Loss: 0.0439
+Train Acc: 99.79% | Val Acc: 98.19%
+Epoch Time: 1.02 minutes
+
+Seed 42 | Epoch 8/10
+Train Loss: 0.0097 | Val Loss: 0.0410
+Train Acc: 99.79% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 42 | Epoch 9/10
+Train Loss: 0.0086 | Val Loss: 0.0450
+Train Acc: 99.84% | Val Acc: 98.19%
+Epoch Time: 0.99 minutes
+
+Seed 42 | Epoch 10/10
+Train Loss: 0.0111 | Val Loss: 0.0412
+Train Acc: 99.79% | Val Acc: 98.43%
+Epoch Time: 1.00 minutes
+
+
+======================================================================
+SEED 42 TRAINING COMPLETE
+Time taken: 12.50 minutes
+======================================================================
+
+Calculating final metrics for Seed 42...
+
+
+==========================================================================================
+SEED 42 - FINAL PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation  Testing
+   Accuracy (%)   99.9135     98.3112  97.6285
+Sensitivity (%)   99.9353     98.7805  97.7612
+Specificity (%)   99.8914     97.6261  97.4790
+  Precision (%)   99.8923     98.3806  97.7612
+   F1-Score (%)   99.9138     98.5801  97.7612
+ Error Rate (%)    0.0865      1.6888   2.3715
+        ROC-AUC    1.0000      0.9991   0.9987
+
+Seed 42 - Training Confusion Matrix:
+[[4601    5]
+ [   3 4637]]
+
+Seed 42 - Validation Confusion Matrix:
+[[329   8]
+ [  6 486]]
+
+Seed 42 - Testing Confusion Matrix:
+[[232   6]
+ [  6 262]]
+
+Completed 1/5 seeds.
+
+
+======================================================================
+STARTING SEED 52
+======================================================================
+
+Seed 52 | Epoch 1/10
+Train Loss: 0.2911 | Val Loss: 0.1313
+Train Acc: 88.71% | Val Acc: 93.73%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 2/10
+Train Loss: 0.0433 | Val Loss: 0.0760
+Train Acc: 98.75% | Val Acc: 96.86%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 3/10
+Train Loss: 0.0239 | Val Loss: 0.0525
+Train Acc: 99.33% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 4/10
+Train Loss: 0.0140 | Val Loss: 0.0509
+Train Acc: 99.56% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 5/10
+Train Loss: 0.0147 | Val Loss: 0.0539
+Train Acc: 99.58% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 6/10
+Train Loss: 0.0126 | Val Loss: 0.0513
+Train Acc: 99.61% | Val Acc: 97.95%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 7/10
+Train Loss: 0.0105 | Val Loss: 0.0462
+Train Acc: 99.68% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 8/10
+Train Loss: 0.0097 | Val Loss: 0.0460
+Train Acc: 99.82% | Val Acc: 98.31%
+Epoch Time: 1.01 minutes
+
+Seed 52 | Epoch 9/10
+Train Loss: 0.0090 | Val Loss: 0.0461
+Train Acc: 99.78% | Val Acc: 98.31%
+Epoch Time: 1.00 minutes
+
+Seed 52 | Epoch 10/10
+Train Loss: 0.0109 | Val Loss: 0.0464
+Train Acc: 99.70% | Val Acc: 98.43%
+Epoch Time: 1.00 minutes
+
+
+======================================================================
+SEED 52 TRAINING COMPLETE
+Time taken: 10.01 minutes
+======================================================================
+
+Calculating final metrics for Seed 52...
+
+
+==========================================================================================
+SEED 52 - FINAL PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation  Testing
+   Accuracy (%)   99.8918     98.3112  97.2332
+Sensitivity (%)   99.9353     98.5772  97.3881
+Specificity (%)   99.8480     97.9228  97.0588
+  Precision (%)   99.8493     98.5772  97.3881
+   F1-Score (%)   99.8923     98.5772  97.3881
+ Error Rate (%)    0.1082      1.6888   2.7668
+        ROC-AUC    1.0000      0.9989   0.9992
+
+Seed 52 - Training Confusion Matrix:
+[[4599    7]
+ [   3 4637]]
+
+Seed 52 - Validation Confusion Matrix:
+[[330   7]
+ [  7 485]]
+
+Seed 52 - Testing Confusion Matrix:
+[[231   7]
+ [  7 261]]
+
+Completed 2/5 seeds.
+
+
+======================================================================
+STARTING SEED 62
+======================================================================
+
+Seed 62 | Epoch 1/10
+Train Loss: 0.2861 | Val Loss: 0.1197
+Train Acc: 89.22% | Val Acc: 95.54%
+Epoch Time: 0.99 minutes
+
+Seed 62 | Epoch 2/10
+Train Loss: 0.0431 | Val Loss: 0.0688
+Train Acc: 98.72% | Val Acc: 96.74%
+Epoch Time: 1.00 minutes
+
+Seed 62 | Epoch 3/10
+Train Loss: 0.0202 | Val Loss: 0.0496
+Train Acc: 99.43% | Val Acc: 97.71%
+Epoch Time: 0.99 minutes
+
+Seed 62 | Epoch 4/10
+Train Loss: 0.0156 | Val Loss: 0.0443
+Train Acc: 99.57% | Val Acc: 98.31%
+Epoch Time: 0.98 minutes
+
+Seed 62 | Epoch 5/10
+Train Loss: 0.0138 | Val Loss: 0.0412
+Train Acc: 99.60% | Val Acc: 98.91%
+Epoch Time: 0.97 minutes
+
+Seed 62 | Epoch 6/10
+Train Loss: 0.0104 | Val Loss: 0.0379
+Train Acc: 99.78% | Val Acc: 98.67%
+Epoch Time: 0.98 minutes
+
+Seed 62 | Epoch 7/10
+Train Loss: 0.0111 | Val Loss: 0.0387
+Train Acc: 99.73% | Val Acc: 98.43%
+Epoch Time: 0.99 minutes
+
+Seed 62 | Epoch 8/10
+Train Loss: 0.0101 | Val Loss: 0.0383
+Train Acc: 99.72% | Val Acc: 98.91%
+Epoch Time: 1.00 minutes
+
+Seed 62 | Epoch 9/10
+Train Loss: 0.0112 | Val Loss: 0.0389
+Train Acc: 99.71% | Val Acc: 98.43%
+Epoch Time: 0.99 minutes
+
+Seed 62 | Epoch 10/10
+Train Loss: 0.0125 | Val Loss: 0.0386
+Train Acc: 99.64% | Val Acc: 98.67%
+Epoch Time: 1.00 minutes
+
+
+======================================================================
+SEED 62 TRAINING COMPLETE
+Time taken: 9.89 minutes
+======================================================================
+
+Calculating final metrics for Seed 62...
+
+
+==========================================================================================
+SEED 62 - FINAL PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation  Testing
+   Accuracy (%)   99.8810     98.6731  98.2213
+Sensitivity (%)   99.8491     99.3902  98.8806
+Specificity (%)   99.9132     97.6261  97.4790
+  Precision (%)   99.9137     98.3903  97.7860
+   F1-Score (%)   99.8814     98.8878  98.3302
+ Error Rate (%)    0.1190      1.3269   1.7787
+        ROC-AUC    1.0000      0.9994   0.9983
+
+Seed 62 - Training Confusion Matrix:
+[[4602    4]
+ [   7 4633]]
+
+Seed 62 - Validation Confusion Matrix:
+[[329   8]
+ [  3 489]]
+
+Seed 62 - Testing Confusion Matrix:
+[[232   6]
+ [  3 265]]
+
+Completed 3/5 seeds.
+
+
+======================================================================
+STARTING SEED 72
+======================================================================
+
+Seed 72 | Epoch 1/10
+Train Loss: 0.2909 | Val Loss: 0.1359
+Train Acc: 88.18% | Val Acc: 94.93%
+Epoch Time: 1.00 minutes
+
+Seed 72 | Epoch 2/10
+Train Loss: 0.0448 | Val Loss: 0.0761
+Train Acc: 98.69% | Val Acc: 97.47%
+Epoch Time: 0.99 minutes
+
+Seed 72 | Epoch 3/10
+Train Loss: 0.0257 | Val Loss: 0.0526
+Train Acc: 99.24% | Val Acc: 98.67%
+Epoch Time: 0.98 minutes
+
+Seed 72 | Epoch 4/10
+Train Loss: 0.0174 | Val Loss: 0.0501
+Train Acc: 99.51% | Val Acc: 98.55%
+Epoch Time: 0.97 minutes
+
+Seed 72 | Epoch 5/10
+Train Loss: 0.0155 | Val Loss: 0.0465
+Train Acc: 99.49% | Val Acc: 98.55%
+Epoch Time: 0.97 minutes
+
+Seed 72 | Epoch 6/10
+Train Loss: 0.0134 | Val Loss: 0.0446
+Train Acc: 99.60% | Val Acc: 98.91%
+Epoch Time: 0.97 minutes
+
+Seed 72 | Epoch 7/10
+Train Loss: 0.0114 | Val Loss: 0.0451
+Train Acc: 99.74% | Val Acc: 98.79%
+Epoch Time: 1.00 minutes
+
+Seed 72 | Epoch 8/10
+Train Loss: 0.0111 | Val Loss: 0.0464
+Train Acc: 99.71% | Val Acc: 98.55%
+Epoch Time: 1.00 minutes
+
+Seed 72 | Epoch 9/10
+Train Loss: 0.0121 | Val Loss: 0.0417
+Train Acc: 99.69% | Val Acc: 98.91%
+Epoch Time: 1.01 minutes
+
+Seed 72 | Epoch 10/10
+Train Loss: 0.0129 | Val Loss: 0.0442
+Train Acc: 99.68% | Val Acc: 98.91%
+Epoch Time: 1.00 minutes
+
+
+======================================================================
+SEED 72 TRAINING COMPLETE
+Time taken: 9.90 minutes
+======================================================================
+
+Calculating final metrics for Seed 72...
+
+
+==========================================================================================
+SEED 72 - FINAL PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation  Testing
+   Accuracy (%)   99.8810     98.9144  98.0237
+Sensitivity (%)   99.8491     99.3902  98.8806
+Specificity (%)   99.9132     98.2196  97.0588
+  Precision (%)   99.9137     98.7879  97.4265
+   F1-Score (%)   99.8814     99.0881  98.1481
+ Error Rate (%)    0.1190      1.0856   1.9763
+        ROC-AUC    1.0000      0.9994   0.9983
+
+Seed 72 - Training Confusion Matrix:
+[[4602    4]
+ [   7 4633]]
+
+Seed 72 - Validation Confusion Matrix:
+[[331   6]
+ [  3 489]]
+
+Seed 72 - Testing Confusion Matrix:
+[[231   7]
+ [  3 265]]
+
+Completed 4/5 seeds.
+
+
+======================================================================
+STARTING SEED 82
+======================================================================
+
+Seed 82 | Epoch 1/10
+Train Loss: 0.3011 | Val Loss: 0.1217
+Train Acc: 88.42% | Val Acc: 95.17%
+Epoch Time: 0.98 minutes
+
+Seed 82 | Epoch 2/10
+Train Loss: 0.0417 | Val Loss: 0.0643
+Train Acc: 98.92% | Val Acc: 97.83%
+Epoch Time: 0.99 minutes
+
+Seed 82 | Epoch 3/10
+Train Loss: 0.0209 | Val Loss: 0.0407
+Train Acc: 99.49% | Val Acc: 98.55%
+Epoch Time: 0.97 minutes
+
+Seed 82 | Epoch 4/10
+Train Loss: 0.0148 | Val Loss: 0.0432
+Train Acc: 99.56% | Val Acc: 98.43%
+Epoch Time: 0.96 minutes
+
+Seed 82 | Epoch 5/10
+Train Loss: 0.0106 | Val Loss: 0.0412
+Train Acc: 99.71% | Val Acc: 98.43%
+Epoch Time: 0.98 minutes
+
+Seed 82 | Epoch 6/10
+Train Loss: 0.0107 | Val Loss: 0.0377
+Train Acc: 99.71% | Val Acc: 98.55%
+Epoch Time: 0.98 minutes
+
+Seed 82 | Epoch 7/10
+Train Loss: 0.0111 | Val Loss: 0.0373
+Train Acc: 99.73% | Val Acc: 98.43%
+Epoch Time: 1.00 minutes
+
+Seed 82 | Epoch 8/10
+Train Loss: 0.0119 | Val Loss: 0.0411
+Train Acc: 99.63% | Val Acc: 98.19%
+Epoch Time: 0.99 minutes
+
+Seed 82 | Epoch 9/10
+Train Loss: 0.0111 | Val Loss: 0.0363
+Train Acc: 99.71% | Val Acc: 98.67%
+Epoch Time: 0.98 minutes
+
+Seed 82 | Epoch 10/10
+Train Loss: 0.0117 | Val Loss: 0.0369
+Train Acc: 99.68% | Val Acc: 98.67%
+Epoch Time: 0.97 minutes
+
+
+======================================================================
+SEED 82 TRAINING COMPLETE
+Time taken: 9.81 minutes
+======================================================================
+
+Calculating final metrics for Seed 82...
+
+
+==========================================================================================
+SEED 82 - FINAL PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation  Testing
+   Accuracy (%)   99.8810     98.6731  98.0237
+Sensitivity (%)   99.8922     99.3902  98.8806
+Specificity (%)   99.8697     97.6261  97.0588
+  Precision (%)   99.8707     98.3903  97.4265
+   F1-Score (%)   99.8815     98.8878  98.1481
+ Error Rate (%)    0.1190      1.3269   1.9763
+        ROC-AUC    1.0000      0.9994   0.9971
+
+Seed 82 - Training Confusion Matrix:
+[[4600    6]
+ [   5 4635]]
+
+Seed 82 - Validation Confusion Matrix:
+[[329   8]
+ [  3 489]]
+
+Seed 82 - Testing Confusion Matrix:
+[[231   7]
+ [  3 265]]
+
+Completed 5/5 seeds.
+
+
+==========================================================================================
+PER-SEED RESULTS
+==========================================================================================
+ Seed    Dataset          Metric   Value
+   42   Training    Accuracy (%) 99.9135
+   42 Validation    Accuracy (%) 98.3112
+   42    Testing    Accuracy (%) 97.6285
+   42   Training Sensitivity (%) 99.9353
+   42 Validation Sensitivity (%) 98.7805
+   42    Testing Sensitivity (%) 97.7612
+   42   Training Specificity (%) 99.8914
+   42 Validation Specificity (%) 97.6261
+   42    Testing Specificity (%) 97.4790
+   42   Training   Precision (%) 99.8923
+   42 Validation   Precision (%) 98.3806
+   42    Testing   Precision (%) 97.7612
+   42   Training    F1-Score (%) 99.9138
+   42 Validation    F1-Score (%) 98.5801
+   42    Testing    F1-Score (%) 97.7612
+   42   Training  Error Rate (%)  0.0865
+   42 Validation  Error Rate (%)  1.6888
+   42    Testing  Error Rate (%)  2.3715
+   42   Training         ROC-AUC  1.0000
+   42 Validation         ROC-AUC  0.9991
+   42    Testing         ROC-AUC  0.9987
+   52   Training    Accuracy (%) 99.8918
+   52 Validation    Accuracy (%) 98.3112
+   52    Testing    Accuracy (%) 97.2332
+   52   Training Sensitivity (%) 99.9353
+   52 Validation Sensitivity (%) 98.5772
+   52    Testing Sensitivity (%) 97.3881
+   52   Training Specificity (%) 99.8480
+   52 Validation Specificity (%) 97.9228
+   52    Testing Specificity (%) 97.0588
+   52   Training   Precision (%) 99.8493
+   52 Validation   Precision (%) 98.5772
+   52    Testing   Precision (%) 97.3881
+   52   Training    F1-Score (%) 99.8923
+   52 Validation    F1-Score (%) 98.5772
+   52    Testing    F1-Score (%) 97.3881
+   52   Training  Error Rate (%)  0.1082
+   52 Validation  Error Rate (%)  1.6888
+   52    Testing  Error Rate (%)  2.7668
+   52   Training         ROC-AUC  1.0000
+   52 Validation         ROC-AUC  0.9989
+   52    Testing         ROC-AUC  0.9992
+   62   Training    Accuracy (%) 99.8810
+   62 Validation    Accuracy (%) 98.6731
+   62    Testing    Accuracy (%) 98.2213
+   62   Training Sensitivity (%) 99.8491
+   62 Validation Sensitivity (%) 99.3902
+   62    Testing Sensitivity (%) 98.8806
+   62   Training Specificity (%) 99.9132
+   62 Validation Specificity (%) 97.6261
+   62    Testing Specificity (%) 97.4790
+   62   Training   Precision (%) 99.9137
+   62 Validation   Precision (%) 98.3903
+   62    Testing   Precision (%) 97.7860
+   62   Training    F1-Score (%) 99.8814
+   62 Validation    F1-Score (%) 98.8878
+   62    Testing    F1-Score (%) 98.3302
+   62   Training  Error Rate (%)  0.1190
+   62 Validation  Error Rate (%)  1.3269
+   62    Testing  Error Rate (%)  1.7787
+   62   Training         ROC-AUC  1.0000
+   62 Validation         ROC-AUC  0.9994
+   62    Testing         ROC-AUC  0.9983
+   72   Training    Accuracy (%) 99.8810
+   72 Validation    Accuracy (%) 98.9144
+   72    Testing    Accuracy (%) 98.0237
+   72   Training Sensitivity (%) 99.8491
+   72 Validation Sensitivity (%) 99.3902
+   72    Testing Sensitivity (%) 98.8806
+   72   Training Specificity (%) 99.9132
+   72 Validation Specificity (%) 98.2196
+   72    Testing Specificity (%) 97.0588
+   72   Training   Precision (%) 99.9137
+   72 Validation   Precision (%) 98.7879
+   72    Testing   Precision (%) 97.4265
+   72   Training    F1-Score (%) 99.8814
+   72 Validation    F1-Score (%) 99.0881
+   72    Testing    F1-Score (%) 98.1481
+   72   Training  Error Rate (%)  0.1190
+   72 Validation  Error Rate (%)  1.0856
+   72    Testing  Error Rate (%)  1.9763
+   72   Training         ROC-AUC  1.0000
+   72 Validation         ROC-AUC  0.9994
+   72    Testing         ROC-AUC  0.9983
+   82   Training    Accuracy (%) 99.8810
+   82 Validation    Accuracy (%) 98.6731
+   82    Testing    Accuracy (%) 98.0237
+   82   Training Sensitivity (%) 99.8922
+   82 Validation Sensitivity (%) 99.3902
+   82    Testing Sensitivity (%) 98.8806
+   82   Training Specificity (%) 99.8697
+   82 Validation Specificity (%) 97.6261
+   82    Testing Specificity (%) 97.0588
+   82   Training   Precision (%) 99.8707
+   82 Validation   Precision (%) 98.3903
+   82    Testing   Precision (%) 97.4265
+   82   Training    F1-Score (%) 99.8815
+   82 Validation    F1-Score (%) 98.8878
+   82    Testing    F1-Score (%) 98.1481
+   82   Training  Error Rate (%)  0.1190
+   82 Validation  Error Rate (%)  1.3269
+   82    Testing  Error Rate (%)  1.9763
+   82   Training         ROC-AUC  1.0000
+   82 Validation         ROC-AUC  0.9994
+   82    Testing         ROC-AUC  0.9971
+
+
+==========================================================================================
+MEAN ± SD PERFORMANCE
+==========================================================================================
+   Dataset          Metric      Mean       SD    Mean ± SD
+  Training    Accuracy (%) 99.889682 0.014102 99.89 ± 0.01
+  Training Sensitivity (%) 99.892241 0.043103 99.89 ± 0.04
+  Training Specificity (%) 99.887104 0.028307 99.89 ± 0.03
+  Training   Precision (%) 99.887950 0.028027 99.89 ± 0.03
+  Training    F1-Score (%) 99.890086 0.014069 99.89 ± 0.01
+  Training  Error Rate (%)  0.110318 0.014102  0.11 ± 0.01
+  Training         ROC-AUC  0.999995 0.000002  1.00 ± 0.00
+Validation    Accuracy (%) 98.576598 0.261514 98.58 ± 0.26
+Validation Sensitivity (%) 99.105691 0.396211 99.11 ± 0.40
+Validation Specificity (%) 97.804154 0.265409 97.80 ± 0.27
+Validation   Precision (%) 98.505273 0.178196 98.51 ± 0.18
+Validation    F1-Score (%) 98.804207 0.221538 98.80 ± 0.22
+Validation  Error Rate (%)  1.423402 0.261514  1.42 ± 0.26
+Validation         ROC-AUC  0.999262 0.000229  1.00 ± 0.00
+   Testing    Accuracy (%) 97.826087 0.395257 97.83 ± 0.40
+   Testing Sensitivity (%) 98.358209 0.727373 98.36 ± 0.73
+   Testing Specificity (%) 97.226891 0.230136 97.23 ± 0.23
+   Testing   Precision (%) 97.557635 0.197952 97.56 ± 0.20
+   Testing    F1-Score (%) 97.955158 0.378946 97.96 ± 0.38
+   Testing  Error Rate (%)  2.173913 0.395257  2.17 ± 0.40
+   Testing         ROC-AUC  0.998332 0.000784  1.00 ± 0.00
+
+
+==============================================================================================================
+TRAINING / VALIDATION / TESTING
+MEAN ± SD PERFORMANCE COMPARISON TABLE
+==============================================================================================================
+         Metric Training Mean ± SD Validation Mean ± SD Testing Mean ± SD
+   Accuracy (%)       99.89 ± 0.01         98.58 ± 0.26      97.83 ± 0.40
+Sensitivity (%)       99.89 ± 0.04         99.11 ± 0.40      98.36 ± 0.73
+Specificity (%)       99.89 ± 0.03         97.80 ± 0.27      97.23 ± 0.23
+  Precision (%)       99.89 ± 0.03         98.51 ± 0.18      97.56 ± 0.20
+   F1-Score (%)       99.89 ± 0.01         98.80 ± 0.22      97.96 ± 0.38
+ Error Rate (%)        0.11 ± 0.01          1.42 ± 0.26       2.17 ± 0.40
+        ROC-AUC        1.00 ± 0.00          1.00 ± 0.00       1.00 ± 0.00
+
+
+======================================================================
+PER-SEED TRAINING TIME
+======================================================================
+ Seed  Time (minutes)  Time (hours)
+   42           12.50          0.21
+   52           10.01          0.17
+   62            9.89          0.16
+   72            9.90          0.17
+   82            9.81          0.16
+
+Mean Time: 10.42 minutes
+SD Time: 1.16 minutes
+Mean ± SD Time: 10.42 ± 1.16 minutes
+
+Total Experiment Time: 0.98 hours
+
+
+==========================================================================================
+MEAN CONFUSION MATRICES
+==========================================================================================
+
+Training Mean CM:
+[[4600.8    5.2]
+ [   5.  4635. ]]
+
+Validation Mean CM:
+[[329.6   7.4]
+ [  4.4 487.6]]
+
+Testing Mean CM:
+[[231.4   6.6]
+ [  4.4 263.6]]
+
+
+Training Confusion Matrix Mean ± SD:
+['4600.80 ± 1.30', '5.20 ± 1.30']
+['5.00 ± 2.00', '4635.00 ± 2.00']
+
+Validation Confusion Matrix Mean ± SD:
+['329.60 ± 0.89', '7.40 ± 0.89']
+['4.40 ± 1.95', '487.60 ± 1.95']
+
+Testing Confusion Matrix Mean ± SD:
+['231.40 ± 0.55', '6.60 ± 0.55']
+['4.40 ± 1.95', '263.60 ± 1.95']
+
+
+
+
+
+
+
+
+====================================================================================================
+FINAL EXPERIMENT SUMMARY
+====================================================================================================
+
+Architecture:
+EfficientNet-B0 → 1280 features → Dropout(0.2) → Linear(1280→1) → Sigmoid (evaluation)
+
+Seeds: [42, 52, 62, 72, 82]
+Epochs per seed: 10
+Batch size: 64
+Learning rate: 0.0001
+
+Total experiment time: 0.98 hours
+
+Mean ± SD results are shown above.
+
+Experiment completed successfully.
