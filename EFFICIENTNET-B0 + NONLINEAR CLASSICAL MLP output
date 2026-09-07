@@ -1,0 +1,2026 @@
+# ============================================================
+# EFFICIENTNET-B0 + NONLINEAR CLASSICAL MLP
+# FIVE-SEED EXPERIMENT
+#
+# ARCHITECTURE:
+#
+# EfficientNet-B0
+#       ↓
+# 1280 features
+#       ↓
+# Linear(1280 → 4)
+#       ↓
+# Tanh
+#       ↓
+# Linear(4 → 5)
+#       ↓
+# ReLU
+#       ↓
+# Linear(5 → 1)
+#       ↓
+# Sigmoid (evaluation)
+#
+# ============================================================
+#
+# SEEDS:
+# [42, 52, 62, 72, 82]
+
+
+============================================================
+FIVE-SEED EXPERIMENT
+============================================================
+Seeds: [42, 52, 62, 72, 82]
+Epochs: 10
+Batch size: 64
+Learning rate: 0.0001
+Mounted at /content/drive
+
+============================================================
+DATASET PATHS
+============================================================
+Train directory: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/train
+Validation directory: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/val
+Test directory: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/test
+
+============================================================
+DATASET INFORMATION
+============================================================
+Classes: ['fractured', 'not fractured']
+Training images: 9246
+Validation images: 829
+Testing images: 506
+
+============================================================
+DEVICE
+============================================================
+Using device: cuda
+GPU: Tesla T4
+
+Results will be permanently saved to:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results
+
+
+==========================================================================================
+STARTING FIVE-SEED EXPERIMENT
+Seeds: [42, 52, 62, 72, 82]
+==========================================================================================
+
+
+##########################################################################################
+RUNNING SEED 42 (1/5)
+##########################################################################################
+
+
+================================================================================
+STARTING SEED 42
+================================================================================
+
+Random Seed: 42
+Seed 42: creating DataLoaders...
+Seed 42: DataLoaders ready | Train batches=145, Val batches=13, Test batches=8
+Seed 42: creating EfficientNet-B0 model...
+Downloading: "https://download.pytorch.org/models/efficientnet_b0_rwightman-7f5810bc.pth" to /root/.cache/torch/hub/checkpoints/efficientnet_b0_rwightman-7f5810bc.pth
+100%|██████████| 20.5M/20.5M [00:00<00:00, 216MB/s]
+Seed 42: model created successfully.
+
+No checkpoint found for Seed 42.
+Starting Seed 42 from Epoch 1.
+
+
+================================================================================
+SEED 42 | EPOCH 1/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 1/10: 100%
+ 145/145 [53:33<00:00, 18.25s/batch, acc=66.22%, loss=0.6354]
+
+Seed 42 | Epoch 1: FIRST BATCH COMPLETED in 46.74 seconds | Loss=0.6935
+
+Seed 42 | Epoch 1: training finished. Starting validation...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 42 | Epoch 1: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 1/10
+Train Loss: 0.6354 | Val Loss: 0.5757
+Train Accuracy: 66.22% | Val Accuracy: 91.44%
+Learning Rate: 0.00010000
+Epoch Time: 63.33 minutes
+Total Seed Time: 63.34 minutes
+Best Val Loss: 0.5757 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 1
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 2/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 2/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 2: FIRST BATCH COMPLETED in 0.42 seconds | Loss=0.5875
+
+Seed 42 | Epoch 2: training finished. Starting validation...
+Seed 42 | Epoch 2: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 2/10
+Train Loss: 0.5607 | Val Loss: 0.5431
+Train Accuracy: 97.85% | Val Accuracy: 95.54%
+Learning Rate: 0.00010000
+Epoch Time: 1.24 minutes
+Total Seed Time: 64.59 minutes
+Best Val Loss: 0.5431 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 2
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 3/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 3/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 3: FIRST BATCH COMPLETED in 0.58 seconds | Loss=0.5579
+
+Seed 42 | Epoch 3: training finished. Starting validation...
+Seed 42 | Epoch 3: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 3/10
+Train Loss: 0.5310 | Val Loss: 0.5188
+Train Accuracy: 98.98% | Val Accuracy: 96.86%
+Learning Rate: 0.00001000
+Epoch Time: 1.26 minutes
+Total Seed Time: 65.86 minutes
+Best Val Loss: 0.5188 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 3
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 4/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 4/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 4: FIRST BATCH COMPLETED in 0.52 seconds | Loss=0.5129
+
+Seed 42 | Epoch 4: training finished. Starting validation...
+Seed 42 | Epoch 4: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 4/10
+Train Loss: 0.5157 | Val Loss: 0.5159
+Train Accuracy: 99.21% | Val Accuracy: 96.14%
+Learning Rate: 0.00001000
+Epoch Time: 1.26 minutes
+Total Seed Time: 67.13 minutes
+Best Val Loss: 0.5159 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 4
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 5/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 5/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 5: FIRST BATCH COMPLETED in 0.44 seconds | Loss=0.5126
+
+Seed 42 | Epoch 5: training finished. Starting validation...
+Seed 42 | Epoch 5: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 5/10
+Train Loss: 0.5122 | Val Loss: 0.5131
+Train Accuracy: 99.46% | Val Accuracy: 96.38%
+Learning Rate: 0.00001000
+Epoch Time: 1.25 minutes
+Total Seed Time: 68.38 minutes
+Best Val Loss: 0.5131 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 5
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 6/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 6/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 6: FIRST BATCH COMPLETED in 0.43 seconds | Loss=0.5074
+
+Seed 42 | Epoch 6: training finished. Starting validation...
+Seed 42 | Epoch 6: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 6/10
+Train Loss: 0.5095 | Val Loss: 0.5105
+Train Accuracy: 99.50% | Val Accuracy: 96.02%
+Learning Rate: 0.00000100
+Epoch Time: 1.28 minutes
+Total Seed Time: 69.67 minutes
+Best Val Loss: 0.5105 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 6
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 7/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 7/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 7: FIRST BATCH COMPLETED in 0.58 seconds | Loss=0.5083
+
+Seed 42 | Epoch 7: training finished. Starting validation...
+Seed 42 | Epoch 7: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 7/10
+Train Loss: 0.5086 | Val Loss: 0.5110
+Train Accuracy: 99.37% | Val Accuracy: 96.14%
+Learning Rate: 0.00000100
+Epoch Time: 1.26 minutes
+Total Seed Time: 70.93 minutes
+Best Val Loss: 0.5105 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 7
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 8/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 8/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 8: FIRST BATCH COMPLETED in 0.64 seconds | Loss=0.5025
+
+Seed 42 | Epoch 8: training finished. Starting validation...
+Seed 42 | Epoch 8: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 8/10
+Train Loss: 0.5080 | Val Loss: 0.5109
+Train Accuracy: 99.43% | Val Accuracy: 96.02%
+Learning Rate: 0.00000100
+Epoch Time: 1.26 minutes
+Total Seed Time: 72.20 minutes
+Best Val Loss: 0.5105 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 8
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 9/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 9/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 9: FIRST BATCH COMPLETED in 0.48 seconds | Loss=0.5194
+
+Seed 42 | Epoch 9: training finished. Starting validation...
+Seed 42 | Epoch 9: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 9/10
+Train Loss: 0.5075 | Val Loss: 0.5102
+Train Accuracy: 99.50% | Val Accuracy: 96.62%
+Learning Rate: 0.00000010
+Epoch Time: 1.26 minutes
+Total Seed Time: 73.46 minutes
+Best Val Loss: 0.5102 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 9
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 | EPOCH 10/10 | STARTING TRAINING
+================================================================================
+Seed 42 | Epoch 10/10:   0%|          | 0/145 [00:00<?, ?batch/s]
+
+Seed 42 | Epoch 10: FIRST BATCH COMPLETED in 0.38 seconds | Loss=0.4975
+
+Seed 42 | Epoch 10: training finished. Starting validation...
+Seed 42 | Epoch 10: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 42 | Epoch 10/10
+Train Loss: 0.5078 | Val Loss: 0.5095
+Train Accuracy: 99.45% | Val Accuracy: 97.35%
+Learning Rate: 0.00000010
+Epoch Time: 1.25 minutes
+Total Seed Time: 74.72 minutes
+Best Val Loss: 0.5095 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 42, Epoch 10
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_42_checkpoint.pth
+
+
+================================================================================
+SEED 42 TRAINING COMPLETE
+================================================================================
+Total time: 74.73 minutes
+Best validation-loss model loaded for Seed 42.
+
+Seed 42: starting final training-set evaluation...
+Seed 42: training-set evaluation complete.
+Seed 42: starting validation-set evaluation...
+Seed 42: validation-set evaluation complete.
+Seed 42: starting testing-set evaluation...
+Seed 42: testing-set evaluation complete.
+
+
+======================================================================
+SEED 42 - TRAINING RESULTS
+======================================================================
+Accuracy (%): 99.6864
+Sensitivity (%): 99.5690
+Specificity (%): 99.8046
+Precision (%): 99.8056
+F1-Score (%): 99.6871
+Error Rate (%): 0.3136
+ROC-AUC: 0.9996
+
+
+======================================================================
+SEED 42 - VALIDATION RESULTS
+======================================================================
+Accuracy (%): 97.3462
+Sensitivity (%): 96.7480
+Specificity (%): 98.2196
+Precision (%): 98.7552
+F1-Score (%): 97.7413
+Error Rate (%): 2.6538
+ROC-AUC: 0.9947
+
+
+======================================================================
+SEED 42 - TESTING RESULTS
+======================================================================
+Accuracy (%): 96.0474
+Sensitivity (%): 94.0299
+Specificity (%): 98.3193
+Precision (%): 98.4375
+F1-Score (%): 96.1832
+Error Rate (%): 3.9526
+ROC-AUC: 0.9928
+
+
+======================================================================
+SEED 42 - TRAINING CONFUSION MATRIX
+======================================================================
+[[4597    9]
+ [  20 4620]]
+
+
+======================================================================
+SEED 42 - VALIDATION CONFUSION MATRIX
+======================================================================
+[[331   6]
+ [ 16 476]]
+
+
+======================================================================
+SEED 42 - TESTING CONFUSION MATRIX
+======================================================================
+[[234   4]
+ [ 16 252]]
+
+
+======================================================================
+SEED 42 PERFORMANCE COMPARISON
+======================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.686351   97.346200 96.047431
+Sensitivity (%) 99.568966   96.747967 94.029851
+Specificity (%) 99.804603   98.219585 98.319328
+  Precision (%) 99.805574   98.755187 98.437500
+   F1-Score (%) 99.687129   97.741273 96.183206
+ Error Rate (%)  0.313649    2.653800  3.952569
+        ROC-AUC  0.999610    0.994741  0.992788
+
+Seed 42 completion marker saved.
+Seed 42 result saved: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/seed_results/seed_42_results.json
+
+
+==========================================================================================
+FINISHED SEED 42
+==========================================================================================
+Completed seeds: [42]
+Remaining seeds: [52, 62, 72, 82]
+
+
+##########################################################################################
+RUNNING SEED 52 (2/5)
+##########################################################################################
+
+
+================================================================================
+STARTING SEED 52
+================================================================================
+
+Random Seed: 52
+Seed 52: creating DataLoaders...
+Seed 52: DataLoaders ready | Train batches=145, Val batches=13, Test batches=8
+Seed 52: creating EfficientNet-B0 model...
+Seed 52: model created successfully.
+
+No checkpoint found for Seed 52.
+Starting Seed 52 from Epoch 1.
+
+
+================================================================================
+SEED 52 | EPOCH 1/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 1/10: 100%
+ 145/145 [01:02<00:00,  2.53batch/s, acc=50.18%, loss=0.6103]
+
+Seed 52 | Epoch 1: FIRST BATCH COMPLETED in 0.53 seconds | Loss=0.6875
+
+Seed 52 | Epoch 1: training finished. Starting validation...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 52 | Epoch 1: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 1/10
+Train Loss: 0.6103 | Val Loss: 0.5249
+Train Accuracy: 50.18% | Val Accuracy: 59.35%
+Learning Rate: 0.00010000
+Epoch Time: 1.20 minutes
+Total Seed Time: 1.20 minutes
+Best Val Loss: 0.5249 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 1
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 2/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 2/10: 100%
+ 145/145 [01:01<00:00,  2.65batch/s, acc=50.18%, loss=0.5303]
+
+Seed 52 | Epoch 2: FIRST BATCH COMPLETED in 0.52 seconds | Loss=0.5213
+
+Seed 52 | Epoch 2: training finished. Starting validation...
+Seed 52 | Epoch 2: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 2/10
+Train Loss: 0.5303 | Val Loss: 0.4916
+Train Accuracy: 50.18% | Val Accuracy: 59.35%
+Learning Rate: 0.00010000
+Epoch Time: 1.21 minutes
+Total Seed Time: 2.42 minutes
+Best Val Loss: 0.4916 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 2
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 3/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 3/10: 100%
+ 145/145 [01:03<00:00,  3.01batch/s, acc=84.36%, loss=0.4949]
+
+Seed 52 | Epoch 3: FIRST BATCH COMPLETED in 0.48 seconds | Loss=0.4942
+
+Seed 52 | Epoch 3: training finished. Starting validation...
+Seed 52 | Epoch 3: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 3/10
+Train Loss: 0.4949 | Val Loss: 0.4520
+Train Accuracy: 84.36% | Val Accuracy: 96.98%
+Learning Rate: 0.00001000
+Epoch Time: 1.24 minutes
+Total Seed Time: 3.66 minutes
+Best Val Loss: 0.4520 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 3
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 4/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 4/10: 100%
+ 145/145 [01:04<00:00,  1.94batch/s, acc=98.91%, loss=0.4750]
+
+Seed 52 | Epoch 4: FIRST BATCH COMPLETED in 0.55 seconds | Loss=0.4678
+
+Seed 52 | Epoch 4: training finished. Starting validation...
+Seed 52 | Epoch 4: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 4/10
+Train Loss: 0.4750 | Val Loss: 0.4480
+Train Accuracy: 98.91% | Val Accuracy: 97.10%
+Learning Rate: 0.00001000
+Epoch Time: 1.23 minutes
+Total Seed Time: 4.89 minutes
+Best Val Loss: 0.4480 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 4
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 5/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 5/10: 100%
+ 145/145 [01:04<00:00,  3.03batch/s, acc=99.23%, loss=0.4714]
+
+Seed 52 | Epoch 5: FIRST BATCH COMPLETED in 0.63 seconds | Loss=0.4560
+
+Seed 52 | Epoch 5: training finished. Starting validation...
+Seed 52 | Epoch 5: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 5/10
+Train Loss: 0.4714 | Val Loss: 0.4447
+Train Accuracy: 99.23% | Val Accuracy: 97.10%
+Learning Rate: 0.00001000
+Epoch Time: 1.25 minutes
+Total Seed Time: 6.15 minutes
+Best Val Loss: 0.4447 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 5
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 6/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 6/10: 100%
+ 145/145 [01:03<00:00,  2.88batch/s, acc=99.34%, loss=0.4682]
+
+Seed 52 | Epoch 6: FIRST BATCH COMPLETED in 0.51 seconds | Loss=0.4441
+
+Seed 52 | Epoch 6: training finished. Starting validation...
+Seed 52 | Epoch 6: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 6/10
+Train Loss: 0.4682 | Val Loss: 0.4422
+Train Accuracy: 99.34% | Val Accuracy: 97.10%
+Learning Rate: 0.00000100
+Epoch Time: 1.23 minutes
+Total Seed Time: 7.39 minutes
+Best Val Loss: 0.4422 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 6
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 7/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 7/10: 100%
+ 145/145 [01:04<00:00,  2.34batch/s, acc=99.50%, loss=0.4657]
+
+Seed 52 | Epoch 7: FIRST BATCH COMPLETED in 0.41 seconds | Loss=0.4937
+
+Seed 52 | Epoch 7: training finished. Starting validation...
+Seed 52 | Epoch 7: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 7/10
+Train Loss: 0.4657 | Val Loss: 0.4414
+Train Accuracy: 99.50% | Val Accuracy: 97.23%
+Learning Rate: 0.00000100
+Epoch Time: 1.23 minutes
+Total Seed Time: 8.63 minutes
+Best Val Loss: 0.4414 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 7
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 8/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 8/10: 100%
+ 145/145 [01:04<00:00,  2.97batch/s, acc=99.46%, loss=0.4654]
+
+Seed 52 | Epoch 8: FIRST BATCH COMPLETED in 0.49 seconds | Loss=0.4759
+
+Seed 52 | Epoch 8: training finished. Starting validation...
+Seed 52 | Epoch 8: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 8/10
+Train Loss: 0.4654 | Val Loss: 0.4416
+Train Accuracy: 99.46% | Val Accuracy: 97.23%
+Learning Rate: 0.00000100
+Epoch Time: 1.25 minutes
+Total Seed Time: 9.88 minutes
+Best Val Loss: 0.4414 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 8
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 9/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 9/10: 100%
+ 145/145 [01:03<00:00,  3.03batch/s, acc=99.37%, loss=0.4653]
+
+Seed 52 | Epoch 9: FIRST BATCH COMPLETED in 0.46 seconds | Loss=0.4692
+
+Seed 52 | Epoch 9: training finished. Starting validation...
+Seed 52 | Epoch 9: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 9/10
+Train Loss: 0.4653 | Val Loss: 0.4412
+Train Accuracy: 99.37% | Val Accuracy: 97.35%
+Learning Rate: 0.00000010
+Epoch Time: 1.24 minutes
+Total Seed Time: 11.13 minutes
+Best Val Loss: 0.4412 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 9
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 | EPOCH 10/10 | STARTING TRAINING
+================================================================================
+Seed 52 | Epoch 10/10: 100%
+ 145/145 [01:04<00:00,  2.55batch/s, acc=99.47%, loss=0.4653]
+
+Seed 52 | Epoch 10: FIRST BATCH COMPLETED in 0.55 seconds | Loss=0.4921
+
+Seed 52 | Epoch 10: training finished. Starting validation...
+Seed 52 | Epoch 10: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 52 | Epoch 10/10
+Train Loss: 0.4653 | Val Loss: 0.4417
+Train Accuracy: 99.47% | Val Accuracy: 97.35%
+Learning Rate: 0.00000010
+Epoch Time: 1.23 minutes
+Total Seed Time: 12.37 minutes
+Best Val Loss: 0.4412 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 52, Epoch 10
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_52_checkpoint.pth
+
+
+================================================================================
+SEED 52 TRAINING COMPLETE
+================================================================================
+Total time: 12.37 minutes
+Best validation-loss model loaded for Seed 52.
+
+Seed 52: starting final training-set evaluation...
+Seed 52: training-set evaluation complete.
+Seed 52: starting validation-set evaluation...
+Seed 52: validation-set evaluation complete.
+Seed 52: starting testing-set evaluation...
+Seed 52: testing-set evaluation complete.
+
+
+======================================================================
+SEED 52 - TRAINING RESULTS
+======================================================================
+Accuracy (%): 99.7080
+Sensitivity (%): 99.5259
+Specificity (%): 99.8914
+Precision (%): 99.8918
+F1-Score (%): 99.7085
+Error Rate (%): 0.2920
+ROC-AUC: 0.9995
+
+
+======================================================================
+SEED 52 - VALIDATION RESULTS
+======================================================================
+Accuracy (%): 97.3462
+Sensitivity (%): 96.7480
+Specificity (%): 98.2196
+Precision (%): 98.7552
+F1-Score (%): 97.7413
+Error Rate (%): 2.6538
+ROC-AUC: 0.9934
+
+
+======================================================================
+SEED 52 - TESTING RESULTS
+======================================================================
+Accuracy (%): 96.0474
+Sensitivity (%): 94.0299
+Specificity (%): 98.3193
+Precision (%): 98.4375
+F1-Score (%): 96.1832
+Error Rate (%): 3.9526
+ROC-AUC: 0.9866
+
+
+======================================================================
+SEED 52 - TRAINING CONFUSION MATRIX
+======================================================================
+[[4601    5]
+ [  22 4618]]
+
+
+======================================================================
+SEED 52 - VALIDATION CONFUSION MATRIX
+======================================================================
+[[331   6]
+ [ 16 476]]
+
+
+======================================================================
+SEED 52 - TESTING CONFUSION MATRIX
+======================================================================
+[[234   4]
+ [ 16 252]]
+
+
+======================================================================
+SEED 52 PERFORMANCE COMPARISON
+======================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.707982   97.346200 96.047431
+Sensitivity (%) 99.525862   96.747967 94.029851
+Specificity (%) 99.891446   98.219585 98.319328
+  Precision (%) 99.891845   98.755187 98.437500
+   F1-Score (%) 99.708518   97.741273 96.183206
+ Error Rate (%)  0.292018    2.653800  3.952569
+        ROC-AUC  0.999487    0.993432  0.986642
+
+Seed 52 completion marker saved.
+Seed 52 result saved: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/seed_results/seed_52_results.json
+
+
+==========================================================================================
+FINISHED SEED 52
+==========================================================================================
+Completed seeds: [42, 52]
+Remaining seeds: [62, 72, 82]
+
+
+##########################################################################################
+RUNNING SEED 62 (3/5)
+##########################################################################################
+
+
+================================================================================
+STARTING SEED 62
+================================================================================
+
+Random Seed: 62
+Seed 62: creating DataLoaders...
+Seed 62: DataLoaders ready | Train batches=145, Val batches=13, Test batches=8
+Seed 62: creating EfficientNet-B0 model...
+Seed 62: model created successfully.
+
+No checkpoint found for Seed 62.
+Starting Seed 62 from Epoch 1.
+
+
+================================================================================
+SEED 62 | EPOCH 1/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 1/10: 100%
+ 145/145 [01:05<00:00,  3.09batch/s, acc=87.04%, loss=0.5645]
+
+Seed 62 | Epoch 1: FIRST BATCH COMPLETED in 0.45 seconds | Loss=0.6831
+
+Seed 62 | Epoch 1: training finished. Starting validation...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 62 | Epoch 1: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 1/10
+Train Loss: 0.5645 | Val Loss: 0.4964
+Train Accuracy: 87.04% | Val Accuracy: 95.05%
+Learning Rate: 0.00010000
+Epoch Time: 1.27 minutes
+Total Seed Time: 1.27 minutes
+Best Val Loss: 0.4964 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 1
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 2/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 2/10: 100%
+ 145/145 [01:04<00:00,  2.35batch/s, acc=98.56%, loss=0.4701]
+
+Seed 62 | Epoch 2: FIRST BATCH COMPLETED in 0.80 seconds | Loss=0.4943
+
+Seed 62 | Epoch 2: training finished. Starting validation...
+Seed 62 | Epoch 2: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 2/10
+Train Loss: 0.4701 | Val Loss: 0.4611
+Train Accuracy: 98.56% | Val Accuracy: 95.05%
+Learning Rate: 0.00010000
+Epoch Time: 1.26 minutes
+Total Seed Time: 2.53 minutes
+Best Val Loss: 0.4611 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 2
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 3/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 3/10: 100%
+ 145/145 [01:06<00:00,  3.18batch/s, acc=99.17%, loss=0.4396]
+
+Seed 62 | Epoch 3: FIRST BATCH COMPLETED in 0.71 seconds | Loss=0.4386
+
+Seed 62 | Epoch 3: training finished. Starting validation...
+Seed 62 | Epoch 3: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 3/10
+Train Loss: 0.4396 | Val Loss: 0.4323
+Train Accuracy: 99.17% | Val Accuracy: 95.66%
+Learning Rate: 0.00001000
+Epoch Time: 1.29 minutes
+Total Seed Time: 3.83 minutes
+Best Val Loss: 0.4323 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 3
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 4/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 4/10: 100%
+ 145/145 [01:05<00:00,  2.51batch/s, acc=99.42%, loss=0.4249]
+
+Seed 62 | Epoch 4: FIRST BATCH COMPLETED in 0.53 seconds | Loss=0.4286
+
+Seed 62 | Epoch 4: training finished. Starting validation...
+Seed 62 | Epoch 4: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 4/10
+Train Loss: 0.4249 | Val Loss: 0.4284
+Train Accuracy: 99.42% | Val Accuracy: 95.90%
+Learning Rate: 0.00001000
+Epoch Time: 1.26 minutes
+Total Seed Time: 5.10 minutes
+Best Val Loss: 0.4284 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 4
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 5/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 5/10: 100%
+ 145/145 [01:05<00:00,  2.59batch/s, acc=99.49%, loss=0.4220]
+
+Seed 62 | Epoch 5: FIRST BATCH COMPLETED in 0.44 seconds | Loss=0.4092
+
+Seed 62 | Epoch 5: training finished. Starting validation...
+Seed 62 | Epoch 5: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 5/10
+Train Loss: 0.4220 | Val Loss: 0.4247
+Train Accuracy: 99.49% | Val Accuracy: 95.78%
+Learning Rate: 0.00001000
+Epoch Time: 1.25 minutes
+Total Seed Time: 6.35 minutes
+Best Val Loss: 0.4247 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 5
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 6/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 6/10: 100%
+ 145/145 [01:05<00:00,  3.07batch/s, acc=99.48%, loss=0.4196]
+
+Seed 62 | Epoch 6: FIRST BATCH COMPLETED in 0.41 seconds | Loss=0.4479
+
+Seed 62 | Epoch 6: training finished. Starting validation...
+Seed 62 | Epoch 6: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 6/10
+Train Loss: 0.4196 | Val Loss: 0.4218
+Train Accuracy: 99.48% | Val Accuracy: 96.26%
+Learning Rate: 0.00000100
+Epoch Time: 1.26 minutes
+Total Seed Time: 7.62 minutes
+Best Val Loss: 0.4218 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 6
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 7/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 7/10: 100%
+ 145/145 [01:05<00:00,  2.46batch/s, acc=99.50%, loss=0.4183]
+
+Seed 62 | Epoch 7: FIRST BATCH COMPLETED in 0.41 seconds | Loss=0.4209
+
+Seed 62 | Epoch 7: training finished. Starting validation...
+Seed 62 | Epoch 7: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 7/10
+Train Loss: 0.4183 | Val Loss: 0.4213
+Train Accuracy: 99.50% | Val Accuracy: 96.26%
+Learning Rate: 0.00000100
+Epoch Time: 1.25 minutes
+Total Seed Time: 8.88 minutes
+Best Val Loss: 0.4213 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 7
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 8/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 8/10: 100%
+ 145/145 [01:05<00:00,  2.98batch/s, acc=99.47%, loss=0.4177]
+
+Seed 62 | Epoch 8: FIRST BATCH COMPLETED in 0.49 seconds | Loss=0.4265
+
+Seed 62 | Epoch 8: training finished. Starting validation...
+Seed 62 | Epoch 8: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 8/10
+Train Loss: 0.4177 | Val Loss: 0.4207
+Train Accuracy: 99.47% | Val Accuracy: 96.14%
+Learning Rate: 0.00000100
+Epoch Time: 1.28 minutes
+Total Seed Time: 10.17 minutes
+Best Val Loss: 0.4207 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 8
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 9/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 9/10: 100%
+ 145/145 [01:04<00:00,  3.36batch/s, acc=99.49%, loss=0.4179]
+
+Seed 62 | Epoch 9: FIRST BATCH COMPLETED in 0.51 seconds | Loss=0.4439
+
+Seed 62 | Epoch 9: training finished. Starting validation...
+Seed 62 | Epoch 9: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 9/10
+Train Loss: 0.4179 | Val Loss: 0.4205
+Train Accuracy: 99.49% | Val Accuracy: 96.14%
+Learning Rate: 0.00000010
+Epoch Time: 1.26 minutes
+Total Seed Time: 11.43 minutes
+Best Val Loss: 0.4205 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 9
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 | EPOCH 10/10 | STARTING TRAINING
+================================================================================
+Seed 62 | Epoch 10/10: 100%
+ 145/145 [01:05<00:00,  3.17batch/s, acc=99.56%, loss=0.4174]
+
+Seed 62 | Epoch 10: FIRST BATCH COMPLETED in 0.46 seconds | Loss=0.4059
+
+Seed 62 | Epoch 10: training finished. Starting validation...
+Seed 62 | Epoch 10: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 62 | Epoch 10/10
+Train Loss: 0.4174 | Val Loss: 0.4208
+Train Accuracy: 99.56% | Val Accuracy: 96.14%
+Learning Rate: 0.00000010
+Epoch Time: 1.25 minutes
+Total Seed Time: 12.68 minutes
+Best Val Loss: 0.4205 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 62, Epoch 10
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_62_checkpoint.pth
+
+
+================================================================================
+SEED 62 TRAINING COMPLETE
+================================================================================
+Total time: 12.69 minutes
+Best validation-loss model loaded for Seed 62.
+
+Seed 62: starting final training-set evaluation...
+Seed 62: training-set evaluation complete.
+Seed 62: starting validation-set evaluation...
+Seed 62: validation-set evaluation complete.
+Seed 62: starting testing-set evaluation...
+Seed 62: testing-set evaluation complete.
+
+
+======================================================================
+SEED 62 - TRAINING RESULTS
+======================================================================
+Accuracy (%): 99.5782
+Sensitivity (%): 99.3966
+Specificity (%): 99.7612
+Precision (%): 99.7621
+F1-Score (%): 99.5790
+Error Rate (%): 0.4218
+ROC-AUC: 0.9997
+
+
+======================================================================
+SEED 62 - VALIDATION RESULTS
+======================================================================
+Accuracy (%): 96.1399
+Sensitivity (%): 95.1220
+Specificity (%): 97.6261
+Precision (%): 98.3193
+F1-Score (%): 96.6942
+Error Rate (%): 3.8601
+ROC-AUC: 0.9933
+
+
+======================================================================
+SEED 62 - TESTING RESULTS
+======================================================================
+Accuracy (%): 94.4664
+Sensitivity (%): 91.0448
+Specificity (%): 98.3193
+Precision (%): 98.3871
+F1-Score (%): 94.5736
+Error Rate (%): 5.5336
+ROC-AUC: 0.9916
+
+
+======================================================================
+SEED 62 - TRAINING CONFUSION MATRIX
+======================================================================
+[[4595   11]
+ [  28 4612]]
+
+
+======================================================================
+SEED 62 - VALIDATION CONFUSION MATRIX
+======================================================================
+[[329   8]
+ [ 24 468]]
+
+
+======================================================================
+SEED 62 - TESTING CONFUSION MATRIX
+======================================================================
+[[234   4]
+ [ 24 244]]
+
+
+======================================================================
+SEED 62 PERFORMANCE COMPARISON
+======================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.578196   96.139928 94.466403
+Sensitivity (%) 99.396552   95.121951 91.044776
+Specificity (%) 99.761181   97.626113 98.319328
+  Precision (%) 99.762059   98.319328 98.387097
+   F1-Score (%) 99.578970   96.694215 94.573643
+ Error Rate (%)  0.421804    3.860072  5.533597
+        ROC-AUC  0.999652    0.993251  0.991628
+
+Seed 62 completion marker saved.
+Seed 62 result saved: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/seed_results/seed_62_results.json
+
+
+==========================================================================================
+FINISHED SEED 62
+==========================================================================================
+Completed seeds: [42, 52, 62]
+Remaining seeds: [72, 82]
+
+
+##########################################################################################
+RUNNING SEED 72 (4/5)
+##########################################################################################
+
+
+================================================================================
+STARTING SEED 72
+================================================================================
+
+Random Seed: 72
+Seed 72: creating DataLoaders...
+Seed 72: DataLoaders ready | Train batches=145, Val batches=13, Test batches=8
+Seed 72: creating EfficientNet-B0 model...
+Seed 72: model created successfully.
+
+No checkpoint found for Seed 72.
+Starting Seed 72 from Epoch 1.
+
+
+================================================================================
+SEED 72 | EPOCH 1/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 1/10: 100%
+ 145/145 [01:02<00:00,  3.02batch/s, acc=49.82%, loss=0.6204]
+
+Seed 72 | Epoch 1: FIRST BATCH COMPLETED in 0.57 seconds | Loss=0.7080
+
+Seed 72 | Epoch 1: training finished. Starting validation...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 72 | Epoch 1: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 1/10
+Train Loss: 0.6204 | Val Loss: 0.6056
+Train Accuracy: 49.82% | Val Accuracy: 40.65%
+Learning Rate: 0.00010000
+Epoch Time: 1.20 minutes
+Total Seed Time: 1.21 minutes
+Best Val Loss: 0.6056 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 1
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 2/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 2/10: 100%
+ 145/145 [01:01<00:00,  2.98batch/s, acc=49.82%, loss=0.5256]
+
+Seed 72 | Epoch 2: FIRST BATCH COMPLETED in 0.43 seconds | Loss=0.5322
+
+Seed 72 | Epoch 2: training finished. Starting validation...
+Seed 72 | Epoch 2: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 2/10
+Train Loss: 0.5256 | Val Loss: 0.5583
+Train Accuracy: 49.82% | Val Accuracy: 40.65%
+Learning Rate: 0.00010000
+Epoch Time: 1.21 minutes
+Total Seed Time: 2.43 minutes
+Best Val Loss: 0.5583 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 2
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 3/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 3/10: 100%
+ 145/145 [01:07<00:00,  2.54batch/s, acc=82.09%, loss=0.4872]
+
+Seed 72 | Epoch 3: FIRST BATCH COMPLETED in 0.50 seconds | Loss=0.4998
+
+Seed 72 | Epoch 3: training finished. Starting validation...
+Seed 72 | Epoch 3: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 3/10
+Train Loss: 0.4872 | Val Loss: 0.5160
+Train Accuracy: 82.09% | Val Accuracy: 97.59%
+Learning Rate: 0.00001000
+Epoch Time: 1.32 minutes
+Total Seed Time: 3.75 minutes
+Best Val Loss: 0.5160 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 3
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 4/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 4/10: 100%
+ 145/145 [01:07<00:00,  2.97batch/s, acc=98.52%, loss=0.4679]
+
+Seed 72 | Epoch 4: FIRST BATCH COMPLETED in 0.84 seconds | Loss=0.4739
+
+Seed 72 | Epoch 4: training finished. Starting validation...
+Seed 72 | Epoch 4: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 4/10
+Train Loss: 0.4679 | Val Loss: 0.5111
+Train Accuracy: 98.52% | Val Accuracy: 97.83%
+Learning Rate: 0.00001000
+Epoch Time: 1.32 minutes
+Total Seed Time: 5.08 minutes
+Best Val Loss: 0.5111 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 4
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 5/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 5/10:  99%
+ 143/145 [01:11<00:00,  2.12batch/s, acc=98.80%, loss=0.4633]
+
+Seed 72 | Epoch 5: FIRST BATCH COMPLETED in 0.42 seconds | Loss=0.4351
+
+Seed 72 | Epoch 5: training finished. Starting validation...
+Seed 72 | Epoch 5: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 5/10
+Train Loss: 0.4633 | Val Loss: 0.5073
+Train Accuracy: 98.81% | Val Accuracy: 97.59%
+Learning Rate: 0.00001000
+Epoch Time: 1.40 minutes
+Total Seed Time: 6.48 minutes
+Best Val Loss: 0.5073 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 5
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 6/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 6/10: 100%
+ 145/145 [01:13<00:00,  2.64batch/s, acc=98.85%, loss=0.4593]
+
+Seed 72 | Epoch 6: FIRST BATCH COMPLETED in 0.58 seconds | Loss=0.4939
+
+Seed 72 | Epoch 6: training finished. Starting validation...
+Seed 72 | Epoch 6: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 6/10
+Train Loss: 0.4593 | Val Loss: 0.5036
+Train Accuracy: 98.85% | Val Accuracy: 97.95%
+Learning Rate: 0.00000100
+Epoch Time: 1.40 minutes
+Total Seed Time: 7.88 minutes
+Best Val Loss: 0.5036 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 6
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 7/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 7/10: 100%
+ 145/145 [01:05<00:00,  2.45batch/s, acc=98.99%, loss=0.4579]
+
+Seed 72 | Epoch 7: FIRST BATCH COMPLETED in 0.47 seconds | Loss=0.4492
+
+Seed 72 | Epoch 7: training finished. Starting validation...
+Seed 72 | Epoch 7: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 7/10
+Train Loss: 0.4579 | Val Loss: 0.5032
+Train Accuracy: 98.99% | Val Accuracy: 97.95%
+Learning Rate: 0.00000100
+Epoch Time: 1.26 minutes
+Total Seed Time: 9.15 minutes
+Best Val Loss: 0.5032 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 7
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 8/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 8/10: 100%
+ 145/145 [01:06<00:00,  3.06batch/s, acc=98.92%, loss=0.4584]
+
+Seed 72 | Epoch 8: FIRST BATCH COMPLETED in 0.41 seconds | Loss=0.4694
+
+Seed 72 | Epoch 8: training finished. Starting validation...
+Seed 72 | Epoch 8: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 8/10
+Train Loss: 0.4584 | Val Loss: 0.5021
+Train Accuracy: 98.92% | Val Accuracy: 97.95%
+Learning Rate: 0.00000100
+Epoch Time: 1.28 minutes
+Total Seed Time: 10.44 minutes
+Best Val Loss: 0.5021 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 8
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 9/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 9/10: 100%
+ 145/145 [01:03<00:00,  2.93batch/s, acc=99.12%, loss=0.4569]
+
+Seed 72 | Epoch 9: FIRST BATCH COMPLETED in 0.40 seconds | Loss=0.4404
+
+Seed 72 | Epoch 9: training finished. Starting validation...
+Seed 72 | Epoch 9: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 9/10
+Train Loss: 0.4569 | Val Loss: 0.5027
+Train Accuracy: 99.12% | Val Accuracy: 97.95%
+Learning Rate: 0.00000010
+Epoch Time: 1.23 minutes
+Total Seed Time: 11.68 minutes
+Best Val Loss: 0.5021 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 9
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 | EPOCH 10/10 | STARTING TRAINING
+================================================================================
+Seed 72 | Epoch 10/10: 100%
+ 145/145 [01:04<00:00,  1.86batch/s, acc=98.98%, loss=0.4575]
+
+Seed 72 | Epoch 10: FIRST BATCH COMPLETED in 0.41 seconds | Loss=0.4472
+
+Seed 72 | Epoch 10: training finished. Starting validation...
+Seed 72 | Epoch 10: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 72 | Epoch 10/10
+Train Loss: 0.4575 | Val Loss: 0.5022
+Train Accuracy: 98.98% | Val Accuracy: 97.83%
+Learning Rate: 0.00000010
+Epoch Time: 1.23 minutes
+Total Seed Time: 12.92 minutes
+Best Val Loss: 0.5021 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 72, Epoch 10
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_72_checkpoint.pth
+
+
+================================================================================
+SEED 72 TRAINING COMPLETE
+================================================================================
+Total time: 12.92 minutes
+Best validation-loss model loaded for Seed 72.
+
+Seed 72: starting final training-set evaluation...
+Seed 72: training-set evaluation complete.
+Seed 72: starting validation-set evaluation...
+Seed 72: validation-set evaluation complete.
+Seed 72: starting testing-set evaluation...
+Seed 72: testing-set evaluation complete.
+
+
+======================================================================
+SEED 72 - TRAINING RESULTS
+======================================================================
+Accuracy (%): 99.1564
+Sensitivity (%): 98.5560
+Specificity (%): 99.7612
+Precision (%): 99.7600
+F1-Score (%): 99.1544
+Error Rate (%): 0.8436
+ROC-AUC: 0.9998
+
+
+======================================================================
+SEED 72 - VALIDATION RESULTS
+======================================================================
+Accuracy (%): 97.9493
+Sensitivity (%): 97.9675
+Specificity (%): 97.9228
+Precision (%): 98.5685
+F1-Score (%): 98.2671
+Error Rate (%): 2.0507
+ROC-AUC: 0.9935
+
+
+======================================================================
+SEED 72 - TESTING RESULTS
+======================================================================
+Accuracy (%): 97.2332
+Sensitivity (%): 96.2687
+Specificity (%): 98.3193
+Precision (%): 98.4733
+F1-Score (%): 97.3585
+Error Rate (%): 2.7668
+ROC-AUC: 0.9962
+
+
+======================================================================
+SEED 72 - TRAINING CONFUSION MATRIX
+======================================================================
+[[4595   11]
+ [  67 4573]]
+
+
+======================================================================
+SEED 72 - VALIDATION CONFUSION MATRIX
+======================================================================
+[[330   7]
+ [ 10 482]]
+
+
+======================================================================
+SEED 72 - TESTING CONFUSION MATRIX
+======================================================================
+[[234   4]
+ [ 10 258]]
+
+
+======================================================================
+SEED 72 PERFORMANCE COMPARISON
+======================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.156392   97.949337 97.233202
+Sensitivity (%) 98.556034   97.967480 96.268657
+Specificity (%) 99.761181   97.922849 98.319328
+  Precision (%) 99.760035   98.568507 98.473282
+   F1-Score (%) 99.154380   98.267074 97.358491
+ Error Rate (%)  0.843608    2.050663  2.766798
+        ROC-AUC  0.999820    0.993529  0.996206
+
+Seed 72 completion marker saved.
+Seed 72 result saved: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/seed_results/seed_72_results.json
+
+
+==========================================================================================
+FINISHED SEED 72
+==========================================================================================
+Completed seeds: [42, 52, 62, 72]
+Remaining seeds: [82]
+
+
+##########################################################################################
+RUNNING SEED 82 (5/5)
+##########################################################################################
+
+
+================================================================================
+STARTING SEED 82
+================================================================================
+
+Random Seed: 82
+Seed 82: creating DataLoaders...
+Seed 82: DataLoaders ready | Train batches=145, Val batches=13, Test batches=8
+Seed 82: creating EfficientNet-B0 model...
+Seed 82: model created successfully.
+
+No checkpoint found for Seed 82.
+Starting Seed 82 from Epoch 1.
+
+
+================================================================================
+SEED 82 | EPOCH 1/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 1/10: 100%
+ 145/145 [01:02<00:00,  2.59batch/s, acc=50.24%, loss=0.5688]
+
+Seed 82 | Epoch 1: FIRST BATCH COMPLETED in 0.51 seconds | Loss=0.6771
+
+Seed 82 | Epoch 1: training finished. Starting validation...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Seed 82 | Epoch 1: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 1/10
+Train Loss: 0.5688 | Val Loss: 0.4560
+Train Accuracy: 50.24% | Val Accuracy: 67.79%
+Learning Rate: 0.00010000
+Epoch Time: 1.23 minutes
+Total Seed Time: 1.23 minutes
+Best Val Loss: 0.4560 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 1
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 2/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 2/10: 100%
+ 145/145 [01:02<00:00,  2.93batch/s, acc=94.52%, loss=0.4554]
+
+Seed 82 | Epoch 2: FIRST BATCH COMPLETED in 0.62 seconds | Loss=0.5168
+
+Seed 82 | Epoch 2: training finished. Starting validation...
+Seed 82 | Epoch 2: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 2/10
+Train Loss: 0.4554 | Val Loss: 0.4161
+Train Accuracy: 94.52% | Val Accuracy: 95.78%
+Learning Rate: 0.00010000
+Epoch Time: 1.22 minutes
+Total Seed Time: 2.45 minutes
+Best Val Loss: 0.4161 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 2
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 3/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 3/10: 100%
+ 145/145 [01:04<00:00,  2.29batch/s, acc=99.03%, loss=0.4211]
+
+Seed 82 | Epoch 3: FIRST BATCH COMPLETED in 0.57 seconds | Loss=0.4752
+
+Seed 82 | Epoch 3: training finished. Starting validation...
+Seed 82 | Epoch 3: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 3/10
+Train Loss: 0.4211 | Val Loss: 0.3829
+Train Accuracy: 99.03% | Val Accuracy: 96.62%
+Learning Rate: 0.00001000
+Epoch Time: 1.24 minutes
+Total Seed Time: 3.70 minutes
+Best Val Loss: 0.3829 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 3
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 4/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 4/10: 100%
+ 145/145 [01:05<00:00,  2.91batch/s, acc=99.04%, loss=0.4057]
+
+Seed 82 | Epoch 4: FIRST BATCH COMPLETED in 0.43 seconds | Loss=0.4399
+
+Seed 82 | Epoch 4: training finished. Starting validation...
+Seed 82 | Epoch 4: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 4/10
+Train Loss: 0.4057 | Val Loss: 0.3759
+Train Accuracy: 99.04% | Val Accuracy: 97.23%
+Learning Rate: 0.00001000
+Epoch Time: 1.27 minutes
+Total Seed Time: 4.97 minutes
+Best Val Loss: 0.3759 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 4
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 5/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 5/10: 100%
+ 145/145 [01:03<00:00,  3.09batch/s, acc=99.49%, loss=0.4003]
+
+Seed 82 | Epoch 5: FIRST BATCH COMPLETED in 0.52 seconds | Loss=0.3949
+
+Seed 82 | Epoch 5: training finished. Starting validation...
+Seed 82 | Epoch 5: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 5/10
+Train Loss: 0.4003 | Val Loss: 0.3721
+Train Accuracy: 99.49% | Val Accuracy: 97.71%
+Learning Rate: 0.00001000
+Epoch Time: 1.24 minutes
+Total Seed Time: 6.21 minutes
+Best Val Loss: 0.3721 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 5
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 6/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 6/10: 100%
+ 145/145 [01:04<00:00,  2.47batch/s, acc=99.48%, loss=0.3979]
+
+Seed 82 | Epoch 6: FIRST BATCH COMPLETED in 0.52 seconds | Loss=0.3828
+
+Seed 82 | Epoch 6: training finished. Starting validation...
+Seed 82 | Epoch 6: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 6/10
+Train Loss: 0.3979 | Val Loss: 0.3685
+Train Accuracy: 99.48% | Val Accuracy: 97.71%
+Learning Rate: 0.00000100
+Epoch Time: 1.24 minutes
+Total Seed Time: 7.46 minutes
+Best Val Loss: 0.3685 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 6
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 7/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 7/10: 100%
+ 145/145 [01:05<00:00,  3.02batch/s, acc=99.39%, loss=0.3971]
+
+Seed 82 | Epoch 7: FIRST BATCH COMPLETED in 0.42 seconds | Loss=0.3415
+
+Seed 82 | Epoch 7: training finished. Starting validation...
+Seed 82 | Epoch 7: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 7/10
+Train Loss: 0.3971 | Val Loss: 0.3678
+Train Accuracy: 99.39% | Val Accuracy: 97.95%
+Learning Rate: 0.00000100
+Epoch Time: 1.27 minutes
+Total Seed Time: 8.73 minutes
+Best Val Loss: 0.3678 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 7
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 8/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 8/10: 100%
+ 145/145 [01:04<00:00,  3.33batch/s, acc=99.49%, loss=0.3968]
+
+Seed 82 | Epoch 8: FIRST BATCH COMPLETED in 0.52 seconds | Loss=0.4223
+
+Seed 82 | Epoch 8: training finished. Starting validation...
+Seed 82 | Epoch 8: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 8/10
+Train Loss: 0.3968 | Val Loss: 0.3691
+Train Accuracy: 99.49% | Val Accuracy: 98.07%
+Learning Rate: 0.00000100
+Epoch Time: 1.25 minutes
+Total Seed Time: 9.99 minutes
+Best Val Loss: 0.3678 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 8
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 9/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 9/10: 100%
+ 145/145 [01:03<00:00,  2.70batch/s, acc=99.61%, loss=0.3957]
+
+Seed 82 | Epoch 9: FIRST BATCH COMPLETED in 0.44 seconds | Loss=0.3862
+
+Seed 82 | Epoch 9: training finished. Starting validation...
+Seed 82 | Epoch 9: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 9/10
+Train Loss: 0.3957 | Val Loss: 0.3682
+Train Accuracy: 99.61% | Val Accuracy: 98.07%
+Learning Rate: 0.00000010
+Epoch Time: 1.22 minutes
+Total Seed Time: 11.22 minutes
+Best Val Loss: 0.3678 | Best Model: NOT UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 9
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 | EPOCH 10/10 | STARTING TRAINING
+================================================================================
+Seed 82 | Epoch 10/10: 100%
+ 145/145 [01:04<00:00,  3.08batch/s, acc=99.49%, loss=0.3966]
+
+Seed 82 | Epoch 10: FIRST BATCH COMPLETED in 0.52 seconds | Loss=0.4017
+
+Seed 82 | Epoch 10: training finished. Starting validation...
+Seed 82 | Epoch 10: validation finished.
+
+
+--------------------------------------------------------------------------------
+Seed 82 | Epoch 10/10
+Train Loss: 0.3966 | Val Loss: 0.3670
+Train Accuracy: 99.49% | Val Accuracy: 97.71%
+Learning Rate: 0.00000010
+Epoch Time: 1.25 minutes
+Total Seed Time: 12.48 minutes
+Best Val Loss: 0.3670 | Best Model: UPDATED
+--------------------------------------------------------------------------------
+Checkpoint saved successfully: Seed 82, Epoch 10
+Checkpoint path: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/checkpoints/seed_82_checkpoint.pth
+
+
+================================================================================
+SEED 82 TRAINING COMPLETE
+================================================================================
+Total time: 12.48 minutes
+Best validation-loss model loaded for Seed 82.
+
+Seed 82: starting final training-set evaluation...
+Seed 82: training-set evaluation complete.
+Seed 82: starting validation-set evaluation...
+Seed 82: validation-set evaluation complete.
+Seed 82: starting testing-set evaluation...
+Seed 82: testing-set evaluation complete.
+
+
+======================================================================
+SEED 82 - TRAINING RESULTS
+======================================================================
+Accuracy (%): 99.7729
+Sensitivity (%): 99.7414
+Specificity (%): 99.8046
+Precision (%): 99.8059
+F1-Score (%): 99.7736
+Error Rate (%): 0.2271
+ROC-AUC: 0.9998
+
+
+======================================================================
+SEED 82 - VALIDATION RESULTS
+======================================================================
+Accuracy (%): 97.7081
+Sensitivity (%): 98.3740
+Specificity (%): 96.7359
+Precision (%): 97.7778
+F1-Score (%): 98.0750
+Error Rate (%): 2.2919
+ROC-AUC: 0.9960
+
+
+======================================================================
+SEED 82 - TESTING RESULTS
+======================================================================
+Accuracy (%): 96.6403
+Sensitivity (%): 97.0149
+Specificity (%): 96.2185
+Precision (%): 96.6543
+F1-Score (%): 96.8343
+Error Rate (%): 3.3597
+ROC-AUC: 0.9938
+
+
+======================================================================
+SEED 82 - TRAINING CONFUSION MATRIX
+======================================================================
+[[4597    9]
+ [  12 4628]]
+
+
+======================================================================
+SEED 82 - VALIDATION CONFUSION MATRIX
+======================================================================
+[[326  11]
+ [  8 484]]
+
+
+======================================================================
+SEED 82 - TESTING CONFUSION MATRIX
+======================================================================
+[[229   9]
+ [  8 260]]
+
+
+======================================================================
+SEED 82 PERFORMANCE COMPARISON
+======================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.772875   97.708082 96.640316
+Sensitivity (%) 99.741379   98.373984 97.014925
+Specificity (%) 99.804603   96.735905 96.218487
+  Precision (%) 99.805909   97.777778 96.654275
+   F1-Score (%) 99.773634   98.074975 96.834264
+ Error Rate (%)  0.227125    2.291918  3.359684
+        ROC-AUC  0.999770    0.995971  0.993823
+
+Seed 82 completion marker saved.
+Seed 82 result saved: /content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/seed_results/seed_82_results.json
+
+
+==========================================================================================
+FINISHED SEED 82
+==========================================================================================
+Completed seeds: [42, 52, 62, 72, 82]
+Remaining seeds: []
+
+
+======================================================================
+FIVE-SEED EXPERIMENT STATUS
+======================================================================
+Completed seeds: [42, 52, 62, 72, 82]
+All five seeds completed successfully.
+
+
+====================================================================================================
+INDIVIDUAL FIVE-SEED RESULTS
+====================================================================================================
+ Seed    Dataset  Accuracy (%)  Sensitivity (%)  Specificity (%)  Precision (%)  F1-Score (%)  Error Rate (%)  ROC-AUC
+   42   Training     99.686351        99.568966        99.804603      99.805574     99.687129        0.313649 0.999610
+   42 Validation     97.346200        96.747967        98.219585      98.755187     97.741273        2.653800 0.994741
+   42    Testing     96.047431        94.029851        98.319328      98.437500     96.183206        3.952569 0.992788
+   52   Training     99.707982        99.525862        99.891446      99.891845     99.708518        0.292018 0.999487
+   52 Validation     97.346200        96.747967        98.219585      98.755187     97.741273        2.653800 0.993432
+   52    Testing     96.047431        94.029851        98.319328      98.437500     96.183206        3.952569 0.986642
+   62   Training     99.578196        99.396552        99.761181      99.762059     99.578970        0.421804 0.999652
+   62 Validation     96.139928        95.121951        97.626113      98.319328     96.694215        3.860072 0.993251
+   62    Testing     94.466403        91.044776        98.319328      98.387097     94.573643        5.533597 0.991628
+   72   Training     99.156392        98.556034        99.761181      99.760035     99.154380        0.843608 0.999820
+   72 Validation     97.949337        97.967480        97.922849      98.568507     98.267074        2.050663 0.993529
+   72    Testing     97.233202        96.268657        98.319328      98.473282     97.358491        2.766798 0.996206
+   82   Training     99.772875        99.741379        99.804603      99.805909     99.773634        0.227125 0.999770
+   82 Validation     97.708082        98.373984        96.735905      97.777778     98.074975        2.291918 0.995971
+   82    Testing     96.640316        97.014925        96.218487      96.654275     96.834264        3.359684 0.993823
+
+
+========================================================================================================================
+PERFORMANCE COMPARISON TABLE - MEAN ± SD
+========================================================================================================================
+   Dataset Accuracy (%) Mean ± SD Sensitivity (%) Mean ± SD Specificity (%) Mean ± SD Precision (%) Mean ± SD F1-Score (%) Mean ± SD Error Rate (%) Mean ± SD ROC-AUC Mean ± SD
+  Training       99.5804 ± 0.2472          99.3578 ± 0.4648          99.8046 ± 0.0532        99.8051 ± 0.0534       99.5805 ± 0.2483          0.4196 ± 0.2472   0.9997 ± 0.0001
+Validation       97.2979 ± 0.6961          96.9919 ± 1.2726          97.7448 ± 0.6153        98.4352 ± 0.4087       97.7038 ± 0.6077          2.7021 ± 0.6961   0.9942 ± 0.0012
+   Testing       96.0870 ± 1.0307          94.4776 ± 2.3362          97.8992 ± 0.9395        98.0779 ± 0.7964       96.2266 ± 1.0472          3.9130 ± 1.0307   0.9922 ± 0.0035
+
+
+======================================================================
+MEAN CONFUSION MATRIX - TRAINING
+======================================================================
+[[4597.     9. ]
+ [  29.8 4610.2]]
+
+Training CM SD:
+[[ 2.45  2.45]
+ [21.57 21.57]]
+
+
+======================================================================
+MEAN CONFUSION MATRIX - VALIDATION
+======================================================================
+[[329.4   7.6]
+ [ 14.8 477.2]]
+
+Validation CM SD:
+[[2.07 2.07]
+ [6.26 6.26]]
+
+
+======================================================================
+MEAN CONFUSION MATRIX - TESTING
+======================================================================
+[[233.    5. ]
+ [ 14.8 253.2]]
+
+Testing CM SD:
+[[2.24 2.24]
+ [6.26 6.26]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+TIME FOR EACH SEED
+======================================================================
+ Seed  Time (minutes)  Time (seconds)
+   42       74.727795     4483.667693
+   52       12.371408      742.284467
+   62       12.689211      761.352645
+   72       12.924423      775.465377
+   82       12.481505      748.890330
+
+
+======================================================================
+MEAN ± SD TIME
+======================================================================
+Mean Time: 25.04 minutes
+SD Time: 27.78 minutes
+Mean ± SD Time: 25.04 ± 27.78 minutes
+
+
+====================================================================================================
+FINAL FIVE-SEED EXPERIMENT COMPLETED
+====================================================================================================
+
+Architecture:
+EfficientNet-B0 → 1280 → Linear(1280→4) → Tanh → Linear(4→5) → ReLU → Linear(5→1) → Sigmoid
+
+Seeds:
+[42, 52, 62, 72, 82]
+
+All seeds completed:
+[42, 52, 62, 72, 82]
+
+Results directory:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results
+
+Individual results:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/individual_five_seed_results.csv
+
+Mean ± SD results:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/mean_sd_performance.csv
+
+Timing:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/five_seed_timing.csv
+
+Figures:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification/EfficientNet_NonlinearMLP_5Seed_Results/figures
+
+Mean ± SD Time:
+25.04 ± 27.78 minutes
+
+
+
+====================================================================================================
+DONE
+====================================================================================================
