@@ -1,0 +1,1111 @@
+# ============================================================
+# EFFICIENTNET-B0 + 16-DIMENSION CLASSICAL HEAD
+#
+# ARCHITECTURE:
+#
+# EfficientNet-B0
+#       ↓
+# 1280 features
+#       ↓
+# Linear(1280 → 16)
+#       ↓
+# Tanh
+#       ↓
+# Linear(16 → 1)
+#       ↓
+# Sigmoid (during evaluation)
+#
+# FIVE SEEDS:
+# [42, 52, 62, 72, 82]
+#
+
+Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+Seeds: [42, 52, 62, 72, 82]
+
+Checking dataset paths...
+Dataset found at:
+/content/drive/MyDrive/Bone_Fracture_Binary_Classification
+
+================ DATASET INFORMATION ================
+Training images   : 9246
+Validation images : 829
+Testing images    : 506
+Classes           : ['fractured', 'not fractured']
+Class to index    : {'fractured': 0, 'not fractured': 1}
+
+Using Device: cuda
+GPU: Tesla T4
+
+================ MODEL ARCHITECTURE ================
+Downloading: "https://download.pytorch.org/models/efficientnet_b0_rwightman-7f5810bc.pth" to /root/.cache/torch/hub/checkpoints/efficientnet_b0_rwightman-7f5810bc.pth
+100%|██████████| 20.5M/20.5M [00:00<00:00, 175MB/s]
+EfficientNet_16(
+  (backbone): EfficientNet(
+    (features): Sequential(
+      (0): Conv2dNormActivation(
+        (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): SiLU(inplace=True)
+      )
+      (1): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+              (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(32, 8, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(8, 32, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (2): Conv2dNormActivation(
+              (0): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.0, mode=row)
+        )
+      )
+      (2): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(16, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(96, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=96, bias=False)
+              (1): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(96, 4, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(4, 96, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(96, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(24, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.0125, mode=row)
+        )
+        (1): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144, bias=False)
+              (1): BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(144, 6, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(6, 144, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(144, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(24, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.025, mode=row)
+        )
+      )
+      (3): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(144, 144, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=144, bias=False)
+              (1): BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(144, 6, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(6, 144, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(144, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(40, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.037500000000000006, mode=row)
+        )
+        (1): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(40, 240, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(240, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(240, 240, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=240, bias=False)
+              (1): BatchNorm2d(240, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(240, 10, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(10, 240, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(240, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(40, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.05, mode=row)
+        )
+      )
+      (4): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(40, 240, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(240, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(240, 240, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=240, bias=False)
+              (1): BatchNorm2d(240, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(240, 10, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(10, 240, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(240, 80, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(80, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.0625, mode=row)
+        )
+        (1): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(80, 480, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(480, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False)
+              (1): BatchNorm2d(480, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(480, 20, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(20, 480, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(480, 80, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(80, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.07500000000000001, mode=row)
+        )
+        (2): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(80, 480, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(480, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False)
+              (1): BatchNorm2d(480, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(480, 20, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(20, 480, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(480, 80, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(80, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.08750000000000001, mode=row)
+        )
+      )
+      (5): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(80, 480, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(480, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(480, 480, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=480, bias=False)
+              (1): BatchNorm2d(480, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(480, 20, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(20, 480, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(480, 112, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(112, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.1, mode=row)
+        )
+        (1): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(112, 672, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(672, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False)
+              (1): BatchNorm2d(672, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(672, 28, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(28, 672, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(672, 112, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(112, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.1125, mode=row)
+        )
+        (2): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(112, 672, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(672, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False)
+              (1): BatchNorm2d(672, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(672, 28, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(28, 672, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(672, 112, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(112, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.125, mode=row)
+        )
+      )
+      (6): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(112, 672, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(672, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(672, 672, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=672, bias=False)
+              (1): BatchNorm2d(672, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(672, 28, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(28, 672, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(672, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.1375, mode=row)
+        )
+        (1): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(1152, 48, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(48, 1152, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(1152, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.15000000000000002, mode=row)
+        )
+        (2): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(1152, 48, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(48, 1152, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(1152, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.1625, mode=row)
+        )
+        (3): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(1152, 48, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(48, 1152, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(1152, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.17500000000000002, mode=row)
+        )
+      )
+      (7): Sequential(
+        (0): MBConv(
+          (block): Sequential(
+            (0): Conv2dNormActivation(
+              (0): Conv2d(192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (1): Conv2dNormActivation(
+              (0): Conv2d(1152, 1152, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1152, bias=False)
+              (1): BatchNorm2d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): SiLU(inplace=True)
+            )
+            (2): SqueezeExcitation(
+              (avgpool): AdaptiveAvgPool2d(output_size=1)
+              (fc1): Conv2d(1152, 48, kernel_size=(1, 1), stride=(1, 1))
+              (fc2): Conv2d(48, 1152, kernel_size=(1, 1), stride=(1, 1))
+              (activation): SiLU(inplace=True)
+              (scale_activation): Sigmoid()
+            )
+            (3): Conv2dNormActivation(
+              (0): Conv2d(1152, 320, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (stochastic_depth): StochasticDepth(p=0.1875, mode=row)
+        )
+      )
+      (8): Conv2dNormActivation(
+        (0): Conv2d(320, 1280, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(1280, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): SiLU(inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=1)
+    (classifier): Identity()
+  )
+  (fc1): Linear(in_features=1280, out_features=16, bias=True)
+  (tanh): Tanh()
+  (fc2): Linear(in_features=16, out_features=1, bias=True)
+)
+
+
+================================================================================
+STARTING TRAINING FOR SEED 42
+================================================================================
+
+Random Seed Set To: 42
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 42, Epoch 1
+
+Seed 42 | Epoch 1/10 | Train Loss: 0.3167 | Val Loss: 0.1715 | Train Acc: 89.54% | Val Acc: 95.66%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 42, Epoch 2
+
+Seed 42 | Epoch 2/10 | Train Loss: 0.0995 | Val Loss: 0.1331 | Train Acc: 99.06% | Val Acc: 97.10%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 42, Epoch 3
+
+Seed 42 | Epoch 3/10 | Train Loss: 0.0757 | Val Loss: 0.1091 | Train Acc: 99.39% | Val Acc: 97.23%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 42, Epoch 4
+
+Seed 42 | Epoch 4/10 | Train Loss: 0.0680 | Val Loss: 0.0967 | Train Acc: 99.36% | Val Acc: 98.19%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 42 | Epoch 5/10 | Train Loss: 0.0615 | Val Loss: 0.1014 | Train Acc: 99.68% | Val Acc: 97.71%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 42 | Epoch 6/10 | Train Loss: 0.0606 | Val Loss: 0.1004 | Train Acc: 99.69% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 42 | Epoch 7/10 | Train Loss: 0.0594 | Val Loss: 0.1010 | Train Acc: 99.72% | Val Acc: 97.59%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 42 | Epoch 8/10 | Train Loss: 0.0589 | Val Loss: 0.1017 | Train Acc: 99.73% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 42 | Epoch 9/10 | Train Loss: 0.0597 | Val Loss: 0.1000 | Train Acc: 99.62% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 42 | Epoch 10/10 | Train Loss: 0.0596 | Val Loss: 0.1015 | Train Acc: 99.66% | Val Acc: 97.95%
+
+
+================================================================================
+SEED 42 TRAINING COMPLETE
+Time taken: 42.11 minutes
+Best Validation Loss: 0.096745
+Model saved: /content/best_model_seed_42.pth
+================================================================================
+
+Evaluating Seed 42 on Training / Validation / Testing...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+
+==========================================================================================
+SEED 42 PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.848583   98.190591 97.035573
+Sensitivity (%) 99.870690   98.373984 97.014925
+Specificity (%) 99.826314   97.922849 97.058824
+  Precision (%) 99.827660   98.574338 97.378277
+   F1-Score (%) 99.849170   98.474059 97.196262
+ Error Rate (%)  0.151417    1.809409  2.964427
+        ROC-AUC  0.999975    0.997835  0.994670
+
+
+================================================================================
+STARTING TRAINING FOR SEED 52
+================================================================================
+
+Random Seed Set To: 52
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 1
+
+Seed 52 | Epoch 1/10 | Train Loss: 0.3624 | Val Loss: 0.2187 | Train Acc: 89.31% | Val Acc: 94.93%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 2
+
+Seed 52 | Epoch 2/10 | Train Loss: 0.1511 | Val Loss: 0.1688 | Train Acc: 98.96% | Val Acc: 96.50%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 3
+
+Seed 52 | Epoch 3/10 | Train Loss: 0.1169 | Val Loss: 0.1228 | Train Acc: 99.37% | Val Acc: 98.43%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 4
+
+Seed 52 | Epoch 4/10 | Train Loss: 0.1010 | Val Loss: 0.1208 | Train Acc: 99.66% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 5
+
+Seed 52 | Epoch 5/10 | Train Loss: 0.0981 | Val Loss: 0.1163 | Train Acc: 99.69% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 6
+
+Seed 52 | Epoch 6/10 | Train Loss: 0.0969 | Val Loss: 0.1149 | Train Acc: 99.65% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 7
+
+Seed 52 | Epoch 7/10 | Train Loss: 0.0939 | Val Loss: 0.1125 | Train Acc: 99.75% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 52 | Epoch 8/10 | Train Loss: 0.0939 | Val Loss: 0.1147 | Train Acc: 99.74% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 52, Epoch 9
+
+Seed 52 | Epoch 9/10 | Train Loss: 0.0942 | Val Loss: 0.1103 | Train Acc: 99.74% | Val Acc: 99.03%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 52 | Epoch 10/10 | Train Loss: 0.0940 | Val Loss: 0.1139 | Train Acc: 99.70% | Val Acc: 98.79%
+
+
+================================================================================
+SEED 52 TRAINING COMPLETE
+Time taken: 8.39 minutes
+Best Validation Loss: 0.110307
+Model saved: /content/best_model_seed_52.pth
+================================================================================
+
+Evaluating Seed 52 on Training / Validation / Testing...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+
+==========================================================================================
+SEED 52 PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.924292   99.034982 98.616601
+Sensitivity (%) 99.935345   99.390244 98.880597
+Specificity (%) 99.913157   98.516320 98.319328
+  Precision (%) 99.913812   98.987854 98.513011
+   F1-Score (%) 99.924577   99.188641 98.696462
+ Error Rate (%)  0.075708    0.965018  1.383399
+        ROC-AUC  0.999995    0.998884  0.995359
+
+
+================================================================================
+STARTING TRAINING FOR SEED 62
+================================================================================
+
+Random Seed Set To: 62
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 1
+
+Seed 62 | Epoch 1/10 | Train Loss: 0.3259 | Val Loss: 0.1899 | Train Acc: 89.75% | Val Acc: 95.78%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 2
+
+Seed 62 | Epoch 2/10 | Train Loss: 0.1220 | Val Loss: 0.1440 | Train Acc: 98.80% | Val Acc: 96.86%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 3
+
+Seed 62 | Epoch 3/10 | Train Loss: 0.0941 | Val Loss: 0.1119 | Train Acc: 99.28% | Val Acc: 97.95%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 4
+
+Seed 62 | Epoch 4/10 | Train Loss: 0.0795 | Val Loss: 0.1054 | Train Acc: 99.49% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 5
+
+Seed 62 | Epoch 5/10 | Train Loss: 0.0752 | Val Loss: 0.1018 | Train Acc: 99.70% | Val Acc: 98.31%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 6
+
+Seed 62 | Epoch 6/10 | Train Loss: 0.0733 | Val Loss: 0.1007 | Train Acc: 99.74% | Val Acc: 98.43%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 7
+
+Seed 62 | Epoch 7/10 | Train Loss: 0.0740 | Val Loss: 0.0995 | Train Acc: 99.61% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 62 | Epoch 8/10 | Train Loss: 0.0729 | Val Loss: 0.0997 | Train Acc: 99.64% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 9
+
+Seed 62 | Epoch 9/10 | Train Loss: 0.0718 | Val Loss: 0.0988 | Train Acc: 99.76% | Val Acc: 98.55%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 62, Epoch 10
+
+Seed 62 | Epoch 10/10 | Train Loss: 0.0721 | Val Loss: 0.0986 | Train Acc: 99.74% | Val Acc: 98.79%
+
+
+================================================================================
+SEED 62 TRAINING COMPLETE
+Time taken: 8.26 minutes
+Best Validation Loss: 0.098574
+Model saved: /content/best_model_seed_62.pth
+================================================================================
+
+Evaluating Seed 62 on Training / Validation / Testing...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+
+==========================================================================================
+SEED 62 PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.837768   98.793727 98.023715
+Sensitivity (%) 99.849138   98.780488 97.761194
+Specificity (%) 99.826314   98.813056 98.319328
+  Precision (%) 99.827623   99.183673 98.496241
+   F1-Score (%) 99.838379   98.981670 98.127341
+ Error Rate (%)  0.162232    1.206273  1.976285
+        ROC-AUC  0.999986    0.998975  0.996535
+
+
+================================================================================
+STARTING TRAINING FOR SEED 72
+================================================================================
+
+Random Seed Set To: 72
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 1
+
+Seed 72 | Epoch 1/10 | Train Loss: 0.3189 | Val Loss: 0.1833 | Train Acc: 90.41% | Val Acc: 94.93%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 2
+
+Seed 72 | Epoch 2/10 | Train Loss: 0.1083 | Val Loss: 0.1218 | Train Acc: 98.95% | Val Acc: 97.83%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 3
+
+Seed 72 | Epoch 3/10 | Train Loss: 0.0833 | Val Loss: 0.0916 | Train Acc: 99.24% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 4
+
+Seed 72 | Epoch 4/10 | Train Loss: 0.0690 | Val Loss: 0.0870 | Train Acc: 99.66% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 5
+
+Seed 72 | Epoch 5/10 | Train Loss: 0.0668 | Val Loss: 0.0836 | Train Acc: 99.69% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 6
+
+Seed 72 | Epoch 6/10 | Train Loss: 0.0657 | Val Loss: 0.0814 | Train Acc: 99.74% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 72, Epoch 7
+
+Seed 72 | Epoch 7/10 | Train Loss: 0.0641 | Val Loss: 0.0807 | Train Acc: 99.75% | Val Acc: 99.03%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 72 | Epoch 8/10 | Train Loss: 0.0641 | Val Loss: 0.0815 | Train Acc: 99.75% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 72 | Epoch 9/10 | Train Loss: 0.0640 | Val Loss: 0.0807 | Train Acc: 99.74% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 72 | Epoch 10/10 | Train Loss: 0.0635 | Val Loss: 0.0816 | Train Acc: 99.77% | Val Acc: 98.79%
+
+
+================================================================================
+SEED 72 TRAINING COMPLETE
+Time taken: 8.38 minutes
+Best Validation Loss: 0.080658
+Model saved: /content/best_model_seed_72.pth
+================================================================================
+
+Evaluating Seed 72 on Training / Validation / Testing...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+
+==========================================================================================
+SEED 72 PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.945923   99.034982 98.814229
+Sensitivity (%) 99.956897   99.593496 99.253731
+Specificity (%) 99.934868   98.219585 98.319328
+  Precision (%) 99.935359   98.790323 98.518519
+   F1-Score (%) 99.946126   99.190283 98.884758
+ Error Rate (%)  0.054077    0.965018  1.185771
+        ROC-AUC  0.999997    0.999608  0.999655
+
+
+================================================================================
+STARTING TRAINING FOR SEED 82
+================================================================================
+
+Random Seed Set To: 82
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 1
+
+Seed 82 | Epoch 1/10 | Train Loss: 0.3490 | Val Loss: 0.2229 | Train Acc: 89.89% | Val Acc: 95.05%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 2
+
+Seed 82 | Epoch 2/10 | Train Loss: 0.1370 | Val Loss: 0.1512 | Train Acc: 98.94% | Val Acc: 97.23%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 3
+
+Seed 82 | Epoch 3/10 | Train Loss: 0.1043 | Val Loss: 0.1174 | Train Acc: 99.37% | Val Acc: 98.67%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 4
+
+Seed 82 | Epoch 4/10 | Train Loss: 0.0882 | Val Loss: 0.1101 | Train Acc: 99.73% | Val Acc: 98.79%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 5
+
+Seed 82 | Epoch 5/10 | Train Loss: 0.0863 | Val Loss: 0.1062 | Train Acc: 99.69% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 6
+
+Seed 82 | Epoch 6/10 | Train Loss: 0.0839 | Val Loss: 0.1022 | Train Acc: 99.72% | Val Acc: 99.16%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 82 | Epoch 7/10 | Train Loss: 0.0818 | Val Loss: 0.1035 | Train Acc: 99.84% | Val Acc: 99.16%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+Checkpoint saved: Seed 82, Epoch 8
+
+Seed 82 | Epoch 8/10 | Train Loss: 0.0831 | Val Loss: 0.1011 | Train Acc: 99.76% | Val Acc: 98.91%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 82 | Epoch 9/10 | Train Loss: 0.0815 | Val Loss: 0.1018 | Train Acc: 99.81% | Val Acc: 99.16%
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+Seed 82 | Epoch 10/10 | Train Loss: 0.0814 | Val Loss: 0.1031 | Train Acc: 99.85% | Val Acc: 99.16%
+
+
+================================================================================
+SEED 82 TRAINING COMPLETE
+Time taken: 8.43 minutes
+Best Validation Loss: 0.101117
+Model saved: /content/best_model_seed_82.pth
+================================================================================
+
+Evaluating Seed 82 on Training / Validation / Testing...
+/usr/local/lib/python3.13/dist-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+
+
+==========================================================================================
+SEED 82 PERFORMANCE
+==========================================================================================
+         Metric  Training  Validation   Testing
+   Accuracy (%) 99.902661   98.914355 97.628458
+Sensitivity (%) 99.892241   98.983740 98.134328
+Specificity (%) 99.913157   98.813056 97.058824
+  Precision (%) 99.913775   99.185336 97.407407
+   F1-Score (%) 99.903007   99.084435 97.769517
+ Error Rate (%)  0.097339    1.085645  2.371542
+        ROC-AUC  0.999801    0.998709  0.997664
+
+
+==========================================================================================
+ALL FIVE SEEDS COMPLETED
+==========================================================================================
+Seeds completed: [42, 52, 62, 72, 82]
+Total time: 82.92 minutes
+
+
+==========================================================================================
+PER-SEED PERFORMANCE RESULTS
+==========================================================================================
+ Seed    Dataset          Metric     Value
+   42   Training    Accuracy (%) 99.848583
+   42   Training Sensitivity (%) 99.870690
+   42   Training Specificity (%) 99.826314
+   42   Training   Precision (%) 99.827660
+   42   Training    F1-Score (%) 99.849170
+   42   Training  Error Rate (%)  0.151417
+   42   Training         ROC-AUC  0.999975
+   42 Validation    Accuracy (%) 98.190591
+   42 Validation Sensitivity (%) 98.373984
+   42 Validation Specificity (%) 97.922849
+   42 Validation   Precision (%) 98.574338
+   42 Validation    F1-Score (%) 98.474059
+   42 Validation  Error Rate (%)  1.809409
+   42 Validation         ROC-AUC  0.997835
+   42    Testing    Accuracy (%) 97.035573
+   42    Testing Sensitivity (%) 97.014925
+   42    Testing Specificity (%) 97.058824
+   42    Testing   Precision (%) 97.378277
+   42    Testing    F1-Score (%) 97.196262
+   42    Testing  Error Rate (%)  2.964427
+   42    Testing         ROC-AUC  0.994670
+   52   Training    Accuracy (%) 99.924292
+   52   Training Sensitivity (%) 99.935345
+   52   Training Specificity (%) 99.913157
+   52   Training   Precision (%) 99.913812
+   52   Training    F1-Score (%) 99.924577
+   52   Training  Error Rate (%)  0.075708
+   52   Training         ROC-AUC  0.999995
+   52 Validation    Accuracy (%) 99.034982
+   52 Validation Sensitivity (%) 99.390244
+   52 Validation Specificity (%) 98.516320
+   52 Validation   Precision (%) 98.987854
+   52 Validation    F1-Score (%) 99.188641
+   52 Validation  Error Rate (%)  0.965018
+   52 Validation         ROC-AUC  0.998884
+   52    Testing    Accuracy (%) 98.616601
+   52    Testing Sensitivity (%) 98.880597
+   52    Testing Specificity (%) 98.319328
+   52    Testing   Precision (%) 98.513011
+   52    Testing    F1-Score (%) 98.696462
+   52    Testing  Error Rate (%)  1.383399
+   52    Testing         ROC-AUC  0.995359
+   62   Training    Accuracy (%) 99.837768
+   62   Training Sensitivity (%) 99.849138
+   62   Training Specificity (%) 99.826314
+   62   Training   Precision (%) 99.827623
+   62   Training    F1-Score (%) 99.838379
+   62   Training  Error Rate (%)  0.162232
+   62   Training         ROC-AUC  0.999986
+   62 Validation    Accuracy (%) 98.793727
+   62 Validation Sensitivity (%) 98.780488
+   62 Validation Specificity (%) 98.813056
+   62 Validation   Precision (%) 99.183673
+   62 Validation    F1-Score (%) 98.981670
+   62 Validation  Error Rate (%)  1.206273
+   62 Validation         ROC-AUC  0.998975
+   62    Testing    Accuracy (%) 98.023715
+   62    Testing Sensitivity (%) 97.761194
+   62    Testing Specificity (%) 98.319328
+   62    Testing   Precision (%) 98.496241
+   62    Testing    F1-Score (%) 98.127341
+   62    Testing  Error Rate (%)  1.976285
+   62    Testing         ROC-AUC  0.996535
+   72   Training    Accuracy (%) 99.945923
+   72   Training Sensitivity (%) 99.956897
+   72   Training Specificity (%) 99.934868
+   72   Training   Precision (%) 99.935359
+   72   Training    F1-Score (%) 99.946126
+   72   Training  Error Rate (%)  0.054077
+   72   Training         ROC-AUC  0.999997
+   72 Validation    Accuracy (%) 99.034982
+   72 Validation Sensitivity (%) 99.593496
+   72 Validation Specificity (%) 98.219585
+   72 Validation   Precision (%) 98.790323
+   72 Validation    F1-Score (%) 99.190283
+   72 Validation  Error Rate (%)  0.965018
+   72 Validation         ROC-AUC  0.999608
+   72    Testing    Accuracy (%) 98.814229
+   72    Testing Sensitivity (%) 99.253731
+   72    Testing Specificity (%) 98.319328
+   72    Testing   Precision (%) 98.518519
+   72    Testing    F1-Score (%) 98.884758
+   72    Testing  Error Rate (%)  1.185771
+   72    Testing         ROC-AUC  0.999655
+   82   Training    Accuracy (%) 99.902661
+   82   Training Sensitivity (%) 99.892241
+   82   Training Specificity (%) 99.913157
+   82   Training   Precision (%) 99.913775
+   82   Training    F1-Score (%) 99.903007
+   82   Training  Error Rate (%)  0.097339
+   82   Training         ROC-AUC  0.999801
+   82 Validation    Accuracy (%) 98.914355
+   82 Validation Sensitivity (%) 98.983740
+   82 Validation Specificity (%) 98.813056
+   82 Validation   Precision (%) 99.185336
+   82 Validation    F1-Score (%) 99.084435
+   82 Validation  Error Rate (%)  1.085645
+   82 Validation         ROC-AUC  0.998709
+   82    Testing    Accuracy (%) 97.628458
+   82    Testing Sensitivity (%) 98.134328
+   82    Testing Specificity (%) 97.058824
+   82    Testing   Precision (%) 97.407407
+   82    Testing    F1-Score (%) 97.769517
+   82    Testing  Error Rate (%)  2.371542
+   82    Testing         ROC-AUC  0.997664
+
+
+==========================================================================================
+FINAL PERFORMANCE COMPARISON TABLE
+MEAN ± SD OVER FIVE SEEDS
+==========================================================================================
+         Metric     Training   Validation      Testing
+   Accuracy (%) 99.89 ± 0.05 98.79 ± 0.35 98.02 ± 0.73
+Sensitivity (%) 99.90 ± 0.04 99.02 ± 0.49 98.21 ± 0.89
+Specificity (%) 99.88 ± 0.05 98.46 ± 0.39 97.82 ± 0.69
+  Precision (%) 99.88 ± 0.05 98.94 ± 0.26 98.06 ± 0.61
+   F1-Score (%) 99.89 ± 0.05 98.98 ± 0.30 98.13 ± 0.69
+ Error Rate (%)  0.11 ± 0.05  1.21 ± 0.35  1.98 ± 0.73
+        ROC-AUC  1.00 ± 0.00  1.00 ± 0.00  1.00 ± 0.00
+
+
+==========================================================================================
+TIME TAKEN FOR EACH SEED
+==========================================================================================
+ Seed  Time (minutes)
+   42     2526.628683
+   52      503.682524
+   62      495.797784
+   72      502.635289
+   82      505.559842
+
+Total execution time: 82.92 minutes
+
+
+
+
+
+==========================================================================================
+MEAN ± SD CONFUSION MATRICES
+==========================================================================================
+
+Training Confusion Matrix:
+[[4.60e+03 5.40e+00]
+ [4.60e+00 4.64e+03]]
+
+Training CM SD:
+[[2.41 2.41]
+ [2.07 2.07]]
+
+Validation Confusion Matrix:
+[[331.8   5.2]
+ [  4.8 487.2]]
+
+Validation CM SD:
+[[1.3  1.3 ]
+ [2.39 2.39]]
+
+Testing Confusion Matrix:
+[[232.8   5.2]
+ [  4.8 263.2]]
+
+Testing CM SD:
+[[1.64 1.64]
+ [2.39 2.39]]
+
+
+
+==========================================================================================
+ROC-AUC MEAN ± SD
+==========================================================================================
+Training   : 1.0000 ± 0.0001
+Validation : 0.9988 ± 0.0006
+Testing    : 0.9968 ± 0.0020
+
+
+====================================================================================================
+PERFORMANCE COMPARISON TABLE
+MEAN ± SD OVER FIVE SEEDS
+====================================================================================================
+         Metric     Training   Validation      Testing
+   Accuracy (%) 99.89 ± 0.05 98.79 ± 0.35 98.02 ± 0.73
+Sensitivity (%) 99.90 ± 0.04 99.02 ± 0.49 98.21 ± 0.89
+Specificity (%) 99.88 ± 0.05 98.46 ± 0.39 97.82 ± 0.69
+  Precision (%) 99.88 ± 0.05 98.94 ± 0.26 98.06 ± 0.61
+   F1-Score (%) 99.89 ± 0.05 98.98 ± 0.30 98.13 ± 0.69
+ Error Rate (%)  0.11 ± 0.05  1.21 ± 0.35  1.98 ± 0.73
+        ROC-AUC  1.00 ± 0.00  1.00 ± 0.00  1.00 ± 0.00
+
+
+==========================================================================================
+RESULT FILES SAVED
+==========================================================================================
+/content/final_mean_sd_results.csv
+/content/per_seed_results.csv
+/content/seed_time_results.csv
+
+
+====================================================================================================
+FINAL EXPERIMENT SUMMARY
+====================================================================================================
+Architecture:
+EfficientNet-B0 → 1280 → Linear(1280→16) → Tanh → Linear(16→1) → Sigmoid
+
+Seeds: [42, 52, 62, 72, 82]
+
+Epochs per seed: 10
+
+Batch size: 64
+
+Learning rate: 0.0001
+
+Device: cuda
+
+Total execution time: 82.92 minutes
+
+All processing completed successfully.
