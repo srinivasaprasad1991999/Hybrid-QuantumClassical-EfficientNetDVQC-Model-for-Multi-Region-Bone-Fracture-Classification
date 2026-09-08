@@ -1,4 +1,4 @@
-# Hybrid-QuantumClassical-EfficientNetDVQC-Model-for-Multi-Region-Bone-Fracture-Classification
+# Hybrid Quantum-Classical EfficientNet-DVQC for Bone Fracture Classification
 # Ablation Study Results
 
 This folder contains the experimental results of the ablation study for the proposed hybrid EfficientNet-B0–DVQC framework for bone fracture classification from X-ray images.
