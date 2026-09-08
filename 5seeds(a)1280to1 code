@@ -1,0 +1,2243 @@
+# ============================================================
+# EFFICIENTNET-B0 BASELINE
+# FIVE-SEED EXPERIMENT
+#
+# ARCHITECTURE:
+#
+# EfficientNet-B0
+#       ↓
+# 1280 features
+#       ↓
+# Dropout(0.2)
+#       ↓
+# Linear(1280 → 1)
+#       ↓
+# Sigmoid (evaluation)
+#
+# SEEDS:
+# [42, 52, 62, 72, 82]
+#
+# RESULTS:
+# Training + Validation + Testing
+# Accuracy
+# Sensitivity
+# Specificity
+# Precision
+# F1-Score
+# Error Rate
+# ROC-AUC
+# Mean ± SD
+# Confusion Matrices
+# ROC Curves
+# Accuracy Curves
+# Loss Curves
+# Time for each seed
+# ============================================================
+
+
+# ============================================================
+# 1. IMPORTS
+# ============================================================
+
+import os
+import time
+import copy
+import random
+import warnings
+
+import numpy as np
+import pandas as pd
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms, models
+from torchvision.models import EfficientNet_B0_Weights
+
+from sklearn.metrics import (
+    confusion_matrix,
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    roc_auc_score,
+    roc_curve
+)
+
+import matplotlib.pyplot as plt
+
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+warnings.filterwarnings(
+    "ignore",
+    message="Palette images with Transparency"
+)
+
+
+# ============================================================
+# 2. GOOGLE DRIVE
+# ============================================================
+
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+
+# ============================================================
+# 3. PATHS
+# ============================================================
+
+data_dir = (
+    "/content/drive/MyDrive/"
+    "Bone_Fracture_Binary_Classification"
+)
+
+train_dir = os.path.join(data_dir, "train")
+val_dir   = os.path.join(data_dir, "val")
+test_dir  = os.path.join(data_dir, "test")
+
+
+# ============================================================
+# 4. CHECK DATASET
+# ============================================================
+
+if not os.path.exists(train_dir):
+    raise FileNotFoundError(
+        f"Training directory not found:\n{train_dir}"
+    )
+
+if not os.path.exists(val_dir):
+    raise FileNotFoundError(
+        f"Validation directory not found:\n{val_dir}"
+    )
+
+if not os.path.exists(test_dir):
+    raise FileNotFoundError(
+        f"Testing directory not found:\n{test_dir}"
+    )
+
+print("Dataset found at:")
+print(data_dir)
+
+
+# ============================================================
+# 5. RANDOM SEEDS
+# ============================================================
+
+SEEDS = [42, 52, 62, 72, 82]
+
+EPOCHS = 10
+BATCH_SIZE = 64
+LEARNING_RATE = 1e-4
+
+NUM_WORKERS = 2
+
+
+# ============================================================
+# 6. DEVICE
+# ============================================================
+
+device = torch.device(
+    "cuda" if torch.cuda.is_available() else "cpu"
+)
+
+print("\nUsing Device:", device)
+
+if torch.cuda.is_available():
+    print(
+        "GPU:",
+        torch.cuda.get_device_name(0)
+    )
+
+
+# ============================================================
+# 7. SET SEED FUNCTION
+# ============================================================
+
+def set_seed(seed):
+
+    random.seed(seed)
+
+    np.random.seed(seed)
+
+    torch.manual_seed(seed)
+
+    torch.cuda.manual_seed(seed)
+
+    torch.cuda.manual_seed_all(seed)
+
+    os.environ["PYTHONHASHSEED"] = str(seed)
+
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+
+# ============================================================
+# 8. TRANSFORMS
+# ============================================================
+
+train_transform = transforms.Compose([
+
+    transforms.Resize((128, 128)),
+
+    transforms.RandomHorizontalFlip(),
+
+    transforms.RandomRotation(10),
+
+    transforms.ToTensor(),
+
+    transforms.Normalize(
+        [0.485, 0.456, 0.406],
+        [0.229, 0.224, 0.225]
+    )
+])
+
+
+val_test_transform = transforms.Compose([
+
+    transforms.Resize((128, 128)),
+
+    transforms.ToTensor(),
+
+    transforms.Normalize(
+        [0.485, 0.456, 0.406],
+        [0.229, 0.224, 0.225]
+    )
+])
+
+
+# ============================================================
+# 9. DATASETS
+# ============================================================
+
+train_dataset = datasets.ImageFolder(
+    train_dir,
+    transform=train_transform
+)
+
+val_dataset = datasets.ImageFolder(
+    val_dir,
+    transform=val_test_transform
+)
+
+test_dataset = datasets.ImageFolder(
+    test_dir,
+    transform=val_test_transform
+)
+
+
+print("\n============================================================")
+print("DATASET INFORMATION")
+print("============================================================")
+
+print(
+    f"Training samples   : {len(train_dataset)}"
+)
+
+print(
+    f"Validation samples : {len(val_dataset)}"
+)
+
+print(
+    f"Testing samples    : {len(test_dataset)}"
+)
+
+print(
+    f"Classes            : {train_dataset.classes}"
+)
+
+print(
+    f"Class mapping      : {train_dataset.class_to_idx}"
+)
+
+
+# ============================================================
+# 10. DATA LOADERS
+# ============================================================
+
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=BATCH_SIZE,
+    shuffle=True,
+    num_workers=NUM_WORKERS,
+    pin_memory=torch.cuda.is_available()
+)
+
+# Validation must never be shuffled
+val_loader = DataLoader(
+    val_dataset,
+    batch_size=BATCH_SIZE,
+    shuffle=False,
+    num_workers=NUM_WORKERS,
+    pin_memory=torch.cuda.is_available()
+)
+
+# Testing must never be shuffled
+test_loader = DataLoader(
+    test_dataset,
+    batch_size=BATCH_SIZE,
+    shuffle=False,
+    num_workers=NUM_WORKERS,
+    pin_memory=torch.cuda.is_available()
+)
+
+
+# ============================================================
+# 11. MODEL
+#
+# EfficientNet-B0
+#       ↓
+# 1280 features
+#       ↓
+# Dropout(0.2)
+#       ↓
+# Linear(1280 → 1)
+#       ↓
+# Sigmoid during evaluation
+# ============================================================
+
+class EfficientNetB0Baseline(nn.Module):
+
+    def __init__(self):
+
+        super(EfficientNetB0Baseline, self).__init__()
+
+        # ----------------------------------------------------
+        # EfficientNet-B0 pretrained backbone
+        # ----------------------------------------------------
+
+        self.backbone = models.efficientnet_b0(
+            weights=EfficientNet_B0_Weights.DEFAULT
+        )
+
+        # ----------------------------------------------------
+        # Remove original classifier
+        # ----------------------------------------------------
+
+        self.backbone.classifier = nn.Identity()
+
+        # ----------------------------------------------------
+        # Dropout
+        # ----------------------------------------------------
+
+        self.dropout = nn.Dropout(
+            p=0.2
+        )
+
+        # ----------------------------------------------------
+        # Linear 1280 → 1
+        # ----------------------------------------------------
+
+        self.fc = nn.Linear(
+            1280,
+            1
+        )
+
+    def forward(self, x):
+
+        # EfficientNet-B0 → 1280 features
+        x = self.backbone(x)
+
+        # Dropout
+        x = self.dropout(x)
+
+        # Linear 1280 → 1
+        x = self.fc(x)
+
+        # IMPORTANT:
+        # No sigmoid here.
+        # BCEWithLogitsLoss expects logits.
+
+        return x
+
+
+# ============================================================
+# 12. METRIC FUNCTION
+# ============================================================
+
+def calculate_metrics(
+    y_true,
+    y_pred,
+    y_prob
+):
+
+    cm = confusion_matrix(
+        y_true,
+        y_pred,
+        labels=[0, 1]
+    )
+
+    TN, FP, FN, TP = cm.ravel()
+
+    total = TN + FP + FN + TP
+
+    # --------------------------------------------------------
+    # Accuracy
+    # --------------------------------------------------------
+
+    accuracy = (
+        (TP + TN) / total * 100
+        if total > 0 else 0.0
+    )
+
+    # --------------------------------------------------------
+    # Sensitivity
+    # --------------------------------------------------------
+
+    sensitivity = (
+        TP / (TP + FN) * 100
+        if (TP + FN) > 0 else 0.0
+    )
+
+    # --------------------------------------------------------
+    # Specificity
+    # --------------------------------------------------------
+
+    specificity = (
+        TN / (TN + FP) * 100
+        if (TN + FP) > 0 else 0.0
+    )
+
+    # --------------------------------------------------------
+    # Precision
+    # --------------------------------------------------------
+
+    precision = precision_score(
+        y_true,
+        y_pred,
+        zero_division=0
+    ) * 100
+
+    # --------------------------------------------------------
+    # F1
+    # --------------------------------------------------------
+
+    f1 = f1_score(
+        y_true,
+        y_pred,
+        zero_division=0
+    ) * 100
+
+    # --------------------------------------------------------
+    # Error Rate
+    # --------------------------------------------------------
+
+    error_rate = (
+        (FP + FN) / total * 100
+        if total > 0 else 0.0
+    )
+
+    # --------------------------------------------------------
+    # ROC-AUC
+    # --------------------------------------------------------
+
+    if len(np.unique(y_true)) == 2:
+
+        roc_auc = roc_auc_score(
+            y_true,
+            y_prob
+        )
+
+    else:
+
+        roc_auc = np.nan
+
+    metrics = {
+
+        "Accuracy (%)": accuracy,
+
+        "Sensitivity (%)": sensitivity,
+
+        "Specificity (%)": specificity,
+
+        "Precision (%)": precision,
+
+        "F1-Score (%)": f1,
+
+        "Error Rate (%)": error_rate,
+
+        "ROC-AUC": roc_auc
+    }
+
+    return metrics, cm
+
+
+# ============================================================
+# 13. PREDICTION FUNCTION
+# ============================================================
+
+def get_predictions(
+    model,
+    loader
+):
+
+    model.eval()
+
+    y_true = []
+    y_pred = []
+    y_prob = []
+
+    with torch.no_grad():
+
+        for images, labels in loader:
+
+            images = images.to(
+                device,
+                non_blocking=True
+            )
+
+            # ------------------------------------------------
+            # Model returns logits
+            # ------------------------------------------------
+
+            outputs = model(images)
+
+            # ------------------------------------------------
+            # Sigmoid ONLY during evaluation
+            # ------------------------------------------------
+
+            probs = torch.sigmoid(
+                outputs
+            )
+
+            preds = (
+                probs >= 0.5
+            ).long()
+
+            y_true.extend(
+                labels.cpu().numpy()
+            )
+
+            y_pred.extend(
+                preds.cpu()
+                .numpy()
+                .flatten()
+            )
+
+            y_prob.extend(
+                probs.cpu()
+                .numpy()
+                .flatten()
+            )
+
+    return (
+        np.array(y_true),
+        np.array(y_pred),
+        np.array(y_prob)
+    )
+
+
+# ============================================================
+# 14. TRAIN ONE SEED
+# ============================================================
+
+def train_one_seed(seed):
+
+    print("\n")
+    print("=" * 70)
+    print(f"STARTING SEED {seed}")
+    print("=" * 70)
+
+    # --------------------------------------------------------
+    # Set seed
+    # --------------------------------------------------------
+
+    set_seed(seed)
+
+    # --------------------------------------------------------
+    # New model for this seed
+    # --------------------------------------------------------
+
+    model = EfficientNetB0Baseline().to(device)
+
+    # --------------------------------------------------------
+    # Loss
+    # --------------------------------------------------------
+
+    criterion = nn.BCEWithLogitsLoss()
+
+    # --------------------------------------------------------
+    # New optimizer
+    # --------------------------------------------------------
+
+    optimizer = optim.Adam(
+        model.parameters(),
+        lr=LEARNING_RATE
+    )
+
+    # --------------------------------------------------------
+    # New scheduler
+    # --------------------------------------------------------
+
+    scheduler = torch.optim.lr_scheduler.StepLR(
+        optimizer,
+        step_size=3,
+        gamma=0.1
+    )
+
+    # --------------------------------------------------------
+    # History
+    # --------------------------------------------------------
+
+    history = {
+
+        "train_loss": [],
+
+        "val_loss": [],
+
+        "train_acc": [],
+
+        "val_acc": []
+    }
+
+    # --------------------------------------------------------
+    # Best model
+    # --------------------------------------------------------
+
+    best_val_loss = float("inf")
+
+    best_model_state = None
+
+    # --------------------------------------------------------
+    # Time
+    # --------------------------------------------------------
+
+    seed_start_time = time.time()
+
+    # ========================================================
+    # EPOCHS
+    # ========================================================
+
+    for epoch in range(EPOCHS):
+
+        epoch_start_time = time.time()
+
+        # ====================================================
+        # TRAINING
+        # ====================================================
+
+        model.train()
+
+        running_loss = 0.0
+
+        correct = 0
+
+        total = 0
+
+        for images, labels in train_loader:
+
+            images = images.to(
+                device,
+                non_blocking=True
+            )
+
+            labels = labels.float().unsqueeze(1)
+
+            labels = labels.to(
+                device,
+                non_blocking=True
+            )
+
+            # ------------------------------------------------
+            # Clear gradients
+            # ------------------------------------------------
+
+            optimizer.zero_grad(
+                set_to_none=True
+            )
+
+            # ------------------------------------------------
+            # Forward
+            # ------------------------------------------------
+
+            outputs = model(images)
+
+            # ------------------------------------------------
+            # Loss
+            # ------------------------------------------------
+
+            loss = criterion(
+                outputs,
+                labels
+            )
+
+            # ------------------------------------------------
+            # Backpropagation
+            # ------------------------------------------------
+
+            loss.backward()
+
+            optimizer.step()
+
+            # ------------------------------------------------
+            # Loss
+            # ------------------------------------------------
+
+            running_loss += loss.item()
+
+            # ------------------------------------------------
+            # Training predictions
+            # ------------------------------------------------
+
+            probs = torch.sigmoid(
+                outputs
+            )
+
+            preds = (
+                probs >= 0.5
+            ).float()
+
+            correct += (
+                preds.squeeze(1) ==
+                labels.squeeze(1)
+            ).sum().item()
+
+            total += labels.size(0)
+
+        # ----------------------------------------------------
+        # Training statistics
+        # ----------------------------------------------------
+
+        train_loss = (
+            running_loss /
+            len(train_loader)
+        )
+
+        train_acc = (
+            correct / total
+        ) * 100
+
+        # ====================================================
+        # VALIDATION
+        # ====================================================
+
+        model.eval()
+
+        val_running_loss = 0.0
+
+        val_correct = 0
+
+        val_total = 0
+
+        with torch.no_grad():
+
+            for images, labels in val_loader:
+
+                images = images.to(
+                    device,
+                    non_blocking=True
+                )
+
+                labels = labels.float().unsqueeze(1)
+
+                labels = labels.to(
+                    device,
+                    non_blocking=True
+                )
+
+                outputs = model(images)
+
+                loss = criterion(
+                    outputs,
+                    labels
+                )
+
+                val_running_loss += (
+                    loss.item()
+                )
+
+                probs = torch.sigmoid(
+                    outputs
+                )
+
+                preds = (
+                    probs >= 0.5
+                ).float()
+
+                val_correct += (
+                    preds.squeeze(1) ==
+                    labels.squeeze(1)
+                ).sum().item()
+
+                val_total += (
+                    labels.size(0)
+                )
+
+        # ----------------------------------------------------
+        # Validation statistics
+        # ----------------------------------------------------
+
+        val_loss = (
+            val_running_loss /
+            len(val_loader)
+        )
+
+        val_acc = (
+            val_correct /
+            val_total
+        ) * 100
+
+        # ----------------------------------------------------
+        # Scheduler
+        # ----------------------------------------------------
+
+        scheduler.step()
+
+        # ----------------------------------------------------
+        # Store history
+        # ----------------------------------------------------
+
+        history["train_loss"].append(
+            train_loss
+        )
+
+        history["val_loss"].append(
+            val_loss
+        )
+
+        history["train_acc"].append(
+            train_acc
+        )
+
+        history["val_acc"].append(
+            val_acc
+        )
+
+        # ====================================================
+        # SAVE BEST MODEL IN MEMORY
+        # ====================================================
+
+        if val_loss < best_val_loss:
+
+            best_val_loss = val_loss
+
+            best_model_state = copy.deepcopy(
+                model.state_dict()
+            )
+
+        # ----------------------------------------------------
+        # Epoch time
+        # ----------------------------------------------------
+
+        epoch_time = (
+            time.time() -
+            epoch_start_time
+        )
+
+        print(
+            f"\nSeed {seed} | "
+            f"Epoch {epoch + 1}/{EPOCHS}"
+        )
+
+        print(
+            f"Train Loss: {train_loss:.4f} | "
+            f"Val Loss: {val_loss:.4f}"
+        )
+
+        print(
+            f"Train Acc: {train_acc:.2f}% | "
+            f"Val Acc: {val_acc:.2f}%"
+        )
+
+        print(
+            f"Epoch Time: "
+            f"{epoch_time / 60:.2f} minutes"
+        )
+
+    # ========================================================
+    # RESTORE BEST MODEL
+    # ========================================================
+
+    model.load_state_dict(
+        best_model_state
+    )
+
+    model = model.to(device)
+
+    # ========================================================
+    # SEED TIME
+    # ========================================================
+
+    seed_time = (
+        time.time() -
+        seed_start_time
+    )
+
+    print("\n")
+    print("=" * 70)
+    print(f"SEED {seed} TRAINING COMPLETE")
+    print(
+        f"Time taken: "
+        f"{seed_time / 60:.2f} minutes"
+    )
+    print("=" * 70)
+
+    # ========================================================
+    # TRAINING / VALIDATION / TESTING PREDICTIONS
+    # ========================================================
+
+    print(
+        f"\nCalculating final metrics "
+        f"for Seed {seed}..."
+    )
+
+    train_y, train_pred, train_prob = (
+        get_predictions(
+            model,
+            train_loader
+        )
+    )
+
+    val_y, val_pred, val_prob = (
+        get_predictions(
+            model,
+            val_loader
+        )
+    )
+
+    test_y, test_pred, test_prob = (
+        get_predictions(
+            model,
+            test_loader
+        )
+    )
+
+    # ========================================================
+    # METRICS
+    # ========================================================
+
+    train_metrics, train_cm = calculate_metrics(
+        train_y,
+        train_pred,
+        train_prob
+    )
+
+    val_metrics, val_cm = calculate_metrics(
+        val_y,
+        val_pred,
+        val_prob
+    )
+
+    test_metrics, test_cm = calculate_metrics(
+        test_y,
+        test_pred,
+        test_prob
+    )
+
+    # ========================================================
+    # ROC INFORMATION
+    # ========================================================
+
+    train_fpr, train_tpr, _ = roc_curve(
+        train_y,
+        train_prob
+    )
+
+    val_fpr, val_tpr, _ = roc_curve(
+        val_y,
+        val_prob
+    )
+
+    test_fpr, test_tpr, _ = roc_curve(
+        test_y,
+        test_prob
+    )
+
+    # ========================================================
+    # PRINT SEED RESULT IMMEDIATELY
+    # ========================================================
+
+    print("\n")
+    print("=" * 90)
+    print(f"SEED {seed} - FINAL PERFORMANCE")
+    print("=" * 90)
+
+    seed_table = pd.DataFrame({
+
+        "Metric": list(train_metrics.keys()),
+
+        "Training": list(
+            train_metrics.values()
+        ),
+
+        "Validation": list(
+            val_metrics.values()
+        ),
+
+        "Testing": list(
+            test_metrics.values()
+        )
+    })
+
+    print(
+        seed_table.to_string(
+            index=False,
+            float_format=lambda x:
+            f"{x:.4f}"
+        )
+    )
+
+    # ========================================================
+    # PRINT CONFUSION MATRICES
+    # ========================================================
+
+    print(
+        f"\nSeed {seed} - Training Confusion Matrix:"
+    )
+
+    print(train_cm)
+
+    print(
+        f"\nSeed {seed} - Validation Confusion Matrix:"
+    )
+
+    print(val_cm)
+
+    print(
+        f"\nSeed {seed} - Testing Confusion Matrix:"
+    )
+
+    print(test_cm)
+
+    # ========================================================
+    # RETURN EVERYTHING
+    # ========================================================
+
+    return {
+
+        "seed": seed,
+
+        "model_state": copy.deepcopy(
+            model.state_dict()
+        ),
+
+        "history": history,
+
+        "train_metrics": train_metrics,
+
+        "val_metrics": val_metrics,
+
+        "test_metrics": test_metrics,
+
+        "train_cm": train_cm,
+
+        "val_cm": val_cm,
+
+        "test_cm": test_cm,
+
+        "train_fpr": train_fpr,
+
+        "train_tpr": train_tpr,
+
+        "val_fpr": val_fpr,
+
+        "val_tpr": val_tpr,
+
+        "test_fpr": test_fpr,
+
+        "test_tpr": test_tpr,
+
+        "train_y": train_y,
+
+        "train_pred": train_pred,
+
+        "train_prob": train_prob,
+
+        "val_y": val_y,
+
+        "val_pred": val_pred,
+
+        "val_prob": val_prob,
+
+        "test_y": test_y,
+
+        "test_pred": test_pred,
+
+        "test_prob": test_prob,
+
+        "time_seconds": seed_time
+    }
+
+
+# ============================================================
+# 15. RUN FIVE SEEDS
+# ============================================================
+
+all_results = []
+
+overall_start_time = time.time()
+
+for seed in SEEDS:
+
+    result = train_one_seed(seed)
+
+    all_results.append(result)
+
+    print(
+        f"\nCompleted "
+        f"{len(all_results)}/{len(SEEDS)} seeds."
+    )
+
+
+overall_time = (
+    time.time() -
+    overall_start_time
+)
+
+
+# ============================================================
+# 16. COLLECT PER-SEED METRICS
+# ============================================================
+
+metric_names = [
+
+    "Accuracy (%)",
+
+    "Sensitivity (%)",
+
+    "Specificity (%)",
+
+    "Precision (%)",
+
+    "F1-Score (%)",
+
+    "Error Rate (%)",
+
+    "ROC-AUC"
+]
+
+
+# ============================================================
+# 17. PER-SEED PERFORMANCE TABLE
+# ============================================================
+
+rows = []
+
+for result in all_results:
+
+    seed = result["seed"]
+
+    for metric in metric_names:
+
+        rows.append({
+
+            "Seed": seed,
+
+            "Dataset": "Training",
+
+            "Metric": metric,
+
+            "Value":
+                result["train_metrics"][metric]
+        })
+
+        rows.append({
+
+            "Seed": seed,
+
+            "Dataset": "Validation",
+
+            "Metric": metric,
+
+            "Value":
+                result["val_metrics"][metric]
+        })
+
+        rows.append({
+
+            "Seed": seed,
+
+            "Dataset": "Testing",
+
+            "Metric": metric,
+
+            "Value":
+                result["test_metrics"][metric]
+        })
+
+
+per_seed_df = pd.DataFrame(rows)
+
+
+print("\n")
+print("=" * 90)
+print("PER-SEED RESULTS")
+print("=" * 90)
+
+print(
+    per_seed_df.to_string(
+        index=False,
+        float_format=lambda x:
+        f"{x:.4f}"
+    )
+)
+
+
+# ============================================================
+# 18. MEAN ± SD TABLE
+# ============================================================
+
+summary_rows = []
+
+for dataset in [
+    "Training",
+    "Validation",
+    "Testing"
+]:
+
+    for metric in metric_names:
+
+        values = per_seed_df[
+            (
+                per_seed_df["Dataset"]
+                == dataset
+            )
+            &
+            (
+                per_seed_df["Metric"]
+                == metric
+            )
+        ]["Value"].values
+
+        mean_value = np.nanmean(values)
+
+        sd_value = np.nanstd(
+            values,
+            ddof=1
+        )
+
+        summary_rows.append({
+
+            "Dataset": dataset,
+
+            "Metric": metric,
+
+            "Mean": mean_value,
+
+            "SD": sd_value,
+
+            "Mean ± SD":
+                f"{mean_value:.2f} ± "
+                f"{sd_value:.2f}"
+        })
+
+
+summary_df = pd.DataFrame(
+    summary_rows
+)
+
+
+print("\n")
+print("=" * 90)
+print("MEAN ± SD PERFORMANCE")
+print("=" * 90)
+
+print(
+    summary_df.to_string(
+        index=False
+    )
+)
+
+
+# ============================================================
+# 19. TRAINING / VALIDATION / TESTING
+#    COMPARISON TABLE
+# ============================================================
+
+comparison_rows = []
+
+for metric in metric_names:
+
+    train_values = per_seed_df[
+        (
+            per_seed_df["Dataset"]
+            == "Training"
+        )
+        &
+        (
+            per_seed_df["Metric"]
+            == metric
+        )
+    ]["Value"].values
+
+    val_values = per_seed_df[
+        (
+            per_seed_df["Dataset"]
+            == "Validation"
+        )
+        &
+        (
+            per_seed_df["Metric"]
+            == metric
+        )
+    ]["Value"].values
+
+    test_values = per_seed_df[
+        (
+            per_seed_df["Dataset"]
+            == "Testing"
+        )
+        &
+        (
+            per_seed_df["Metric"]
+            == metric
+        )
+    ]["Value"].values
+
+    train_mean = np.nanmean(train_values)
+    train_sd = np.nanstd(
+        train_values,
+        ddof=1
+    )
+
+    val_mean = np.nanmean(val_values)
+    val_sd = np.nanstd(
+        val_values,
+        ddof=1
+    )
+
+    test_mean = np.nanmean(test_values)
+    test_sd = np.nanstd(
+        test_values,
+        ddof=1
+    )
+
+    comparison_rows.append({
+
+        "Metric": metric,
+
+        "Training Mean ± SD":
+            f"{train_mean:.2f} ± {train_sd:.2f}",
+
+        "Validation Mean ± SD":
+            f"{val_mean:.2f} ± {val_sd:.2f}",
+
+        "Testing Mean ± SD":
+            f"{test_mean:.2f} ± {test_sd:.2f}"
+    })
+
+
+comparison_df = pd.DataFrame(
+    comparison_rows
+)
+
+
+print("\n")
+print("=" * 110)
+print("TRAINING / VALIDATION / TESTING")
+print("MEAN ± SD PERFORMANCE COMPARISON TABLE")
+print("=" * 110)
+
+print(
+    comparison_df.to_string(
+        index=False
+    )
+)
+
+
+# ============================================================
+# 20. TIME FOR EACH SEED
+# ============================================================
+
+time_rows = []
+
+for result in all_results:
+
+    time_rows.append({
+
+        "Seed":
+            result["seed"],
+
+        "Time (minutes)":
+            result["time_seconds"] / 60,
+
+        "Time (hours)":
+            result["time_seconds"] / 3600
+    })
+
+
+time_df = pd.DataFrame(
+    time_rows
+)
+
+
+time_mean = np.mean(
+    time_df["Time (minutes)"]
+)
+
+time_sd = np.std(
+    time_df["Time (minutes)"],
+    ddof=1
+)
+
+
+print("\n")
+print("=" * 70)
+print("PER-SEED TRAINING TIME")
+print("=" * 70)
+
+print(
+    time_df.to_string(
+        index=False,
+        float_format=lambda x:
+        f"{x:.2f}"
+    )
+)
+
+print(
+    f"\nMean Time: "
+    f"{time_mean:.2f} minutes"
+)
+
+print(
+    f"SD Time: "
+    f"{time_sd:.2f} minutes"
+)
+
+print(
+    f"Mean ± SD Time: "
+    f"{time_mean:.2f} ± {time_sd:.2f} minutes"
+)
+
+print(
+    f"\nTotal Experiment Time: "
+    f"{overall_time / 3600:.2f} hours"
+)
+
+
+# ============================================================
+# 21. CONFUSION MATRICES
+#     MEAN ± SD
+# ============================================================
+
+train_cms = np.array([
+    result["train_cm"]
+    for result in all_results
+])
+
+val_cms = np.array([
+    result["val_cm"]
+    for result in all_results
+])
+
+test_cms = np.array([
+    result["test_cm"]
+    for result in all_results
+])
+
+
+train_cm_mean = np.mean(
+    train_cms,
+    axis=0
+)
+
+val_cm_mean = np.mean(
+    val_cms,
+    axis=0
+)
+
+test_cm_mean = np.mean(
+    test_cms,
+    axis=0
+)
+
+
+train_cm_sd = np.std(
+    train_cms,
+    axis=0,
+    ddof=1
+)
+
+val_cm_sd = np.std(
+    val_cms,
+    axis=0,
+    ddof=1
+)
+
+test_cm_sd = np.std(
+    test_cms,
+    axis=0,
+    ddof=1
+)
+
+
+print("\n")
+print("=" * 90)
+print("MEAN CONFUSION MATRICES")
+print("=" * 90)
+
+print("\nTraining Mean CM:")
+print(train_cm_mean)
+
+print("\nValidation Mean CM:")
+print(val_cm_mean)
+
+print("\nTesting Mean CM:")
+print(test_cm_mean)
+
+
+# ============================================================
+# 22. PLOT MEAN CONFUSION MATRICES
+#     TRAINING | VALIDATION | TESTING
+#     SINGLE ROW
+# ============================================================
+
+fig, axes = plt.subplots(
+    1,
+    3,
+    figsize=(15, 4.5)
+)
+
+mean_cms = [
+
+    train_cm_mean,
+
+    val_cm_mean,
+
+    test_cm_mean
+]
+
+titles = [
+
+    "Training",
+
+    "Validation",
+
+    "Testing"
+]
+
+for ax, cm, title in zip(
+    axes,
+    mean_cms,
+    titles
+):
+
+    im = ax.imshow(cm)
+
+    ax.set_title(
+        f"{title}\nMean Confusion Matrix"
+    )
+
+    ax.set_xlabel(
+        "Predicted"
+    )
+
+    ax.set_ylabel(
+        "Actual"
+    )
+
+    ax.set_xticks([0, 1])
+
+    ax.set_yticks([0, 1])
+
+    ax.set_xticklabels(
+        ["Non-Fracture", "Fracture"]
+    )
+
+    ax.set_yticklabels(
+        ["Non-Fracture", "Fracture"]
+    )
+
+    for i in range(2):
+
+        for j in range(2):
+
+            ax.text(
+                j,
+                i,
+                f"{cm[i, j]:.1f}",
+                ha="center",
+                va="center"
+            )
+
+plt.tight_layout()
+
+plt.show()
+
+
+# ============================================================
+# 23. MEAN ± SD CONFUSION MATRIX VALUES
+# ============================================================
+
+def print_cm_mean_sd(
+    name,
+    mean_cm,
+    sd_cm
+):
+
+    print(f"\n{name} Confusion Matrix Mean ± SD:")
+
+    for i in range(2):
+
+        print(
+
+            [
+                (
+                    f"{mean_cm[i, j]:.2f} ± "
+                    f"{sd_cm[i, j]:.2f}"
+                )
+
+                for j in range(2)
+            ]
+        )
+
+
+print_cm_mean_sd(
+    "Training",
+    train_cm_mean,
+    train_cm_sd
+)
+
+print_cm_mean_sd(
+    "Validation",
+    val_cm_mean,
+    val_cm_sd
+)
+
+print_cm_mean_sd(
+    "Testing",
+    test_cm_mean,
+    test_cm_sd
+)
+
+
+# ============================================================
+# 24. ACCURACY CURVES
+#     EACH SEED
+# ============================================================
+
+plt.figure(
+    figsize=(10, 6)
+)
+
+for result in all_results:
+
+    history = result["history"]
+
+    epochs = range(
+        1,
+        len(history["train_acc"]) + 1
+    )
+
+    plt.plot(
+        epochs,
+        history["train_acc"],
+        alpha=0.5,
+        linestyle="--"
+    )
+
+    plt.plot(
+        epochs,
+        history["val_acc"],
+        alpha=0.5
+    )
+
+
+plt.xlabel("Epoch")
+
+plt.ylabel("Accuracy (%)")
+
+plt.title(
+    "Training vs Validation Accuracy - Five Seeds"
+)
+
+plt.grid(
+    alpha=0.3
+)
+
+plt.show()
+
+
+# ============================================================
+# 25. MEAN ± SD ACCURACY CURVE
+# ============================================================
+
+all_train_acc = np.array([
+
+    result["history"]["train_acc"]
+
+    for result in all_results
+])
+
+all_val_acc = np.array([
+
+    result["history"]["val_acc"]
+
+    for result in all_results
+])
+
+
+mean_train_acc = np.mean(
+    all_train_acc,
+    axis=0
+)
+
+sd_train_acc = np.std(
+    all_train_acc,
+    axis=0,
+    ddof=1
+)
+
+mean_val_acc = np.mean(
+    all_val_acc,
+    axis=0
+)
+
+sd_val_acc = np.std(
+    all_val_acc,
+    axis=0,
+    ddof=1
+)
+
+
+epochs = range(
+    1,
+    EPOCHS + 1
+)
+
+
+plt.figure(
+    figsize=(10, 6)
+)
+
+plt.plot(
+    epochs,
+    mean_train_acc,
+    label="Training Mean"
+)
+
+plt.fill_between(
+    epochs,
+    mean_train_acc - sd_train_acc,
+    mean_train_acc + sd_train_acc,
+    alpha=0.2
+)
+
+plt.plot(
+    epochs,
+    mean_val_acc,
+    label="Validation Mean"
+)
+
+plt.fill_between(
+    epochs,
+    mean_val_acc - sd_val_acc,
+    mean_val_acc + sd_val_acc,
+    alpha=0.2
+)
+
+plt.xlabel("Epoch")
+
+plt.ylabel("Accuracy (%)")
+
+plt.title(
+    "Mean ± SD Accuracy Curve - Five Seeds"
+)
+
+plt.legend()
+
+plt.grid(
+    alpha=0.3
+)
+
+plt.show()
+
+
+# ============================================================
+# 26. LOSS CURVES
+#     EACH SEED
+# ============================================================
+
+plt.figure(
+    figsize=(10, 6)
+)
+
+for result in all_results:
+
+    history = result["history"]
+
+    epochs = range(
+        1,
+        len(history["train_loss"]) + 1
+    )
+
+    plt.plot(
+        epochs,
+        history["train_loss"],
+        alpha=0.5,
+        linestyle="--"
+    )
+
+    plt.plot(
+        epochs,
+        history["val_loss"],
+        alpha=0.5
+    )
+
+
+plt.xlabel("Epoch")
+
+plt.ylabel("Loss")
+
+plt.title(
+    "Training vs Validation Loss - Five Seeds"
+)
+
+plt.grid(
+    alpha=0.3
+)
+
+plt.show()
+
+
+# ============================================================
+# 27. MEAN ± SD LOSS CURVE
+# ============================================================
+
+all_train_loss = np.array([
+
+    result["history"]["train_loss"]
+
+    for result in all_results
+])
+
+all_val_loss = np.array([
+
+    result["history"]["val_loss"]
+
+    for result in all_results
+])
+
+
+mean_train_loss = np.mean(
+    all_train_loss,
+    axis=0
+)
+
+sd_train_loss = np.std(
+    all_train_loss,
+    axis=0,
+    ddof=1
+)
+
+mean_val_loss = np.mean(
+    all_val_loss,
+    axis=0
+)
+
+sd_val_loss = np.std(
+    all_val_loss,
+    axis=0,
+    ddof=1
+)
+
+
+plt.figure(
+    figsize=(10, 6)
+)
+
+plt.plot(
+    epochs,
+    mean_train_loss,
+    label="Training Mean"
+)
+
+plt.fill_between(
+    epochs,
+    mean_train_loss - sd_train_loss,
+    mean_train_loss + sd_train_loss,
+    alpha=0.2
+)
+
+plt.plot(
+    epochs,
+    mean_val_loss,
+    label="Validation Mean"
+)
+
+plt.fill_between(
+    epochs,
+    mean_val_loss - sd_val_loss,
+    mean_val_loss + sd_val_loss,
+    alpha=0.2
+)
+
+plt.xlabel("Epoch")
+
+plt.ylabel("Loss")
+
+plt.title(
+    "Mean ± SD Loss Curve - Five Seeds"
+)
+
+plt.legend()
+
+plt.grid(
+    alpha=0.3
+)
+
+plt.show()
+
+
+# ============================================================
+# 28. ROC CURVES
+#     TRAINING / VALIDATION / TESTING
+#     FOR EACH SEED
+# ============================================================
+
+plt.figure(
+    figsize=(10, 7)
+)
+
+for result in all_results:
+
+    seed = result["seed"]
+
+    plt.plot(
+        result["train_fpr"],
+        result["train_tpr"],
+        linestyle="--",
+        alpha=0.5,
+        label=f"Train Seed {seed}"
+    )
+
+    plt.plot(
+        result["val_fpr"],
+        result["val_tpr"],
+        alpha=0.5,
+        label=f"Val Seed {seed}"
+    )
+
+    plt.plot(
+        result["test_fpr"],
+        result["test_tpr"],
+        alpha=0.5,
+        label=f"Test Seed {seed}"
+    )
+
+
+plt.plot(
+    [0, 1],
+    [0, 1],
+    linestyle=":"
+)
+
+plt.xlabel(
+    "False Positive Rate"
+)
+
+plt.ylabel(
+    "True Positive Rate"
+)
+
+plt.title(
+    "ROC Curves - Five Seeds"
+)
+
+plt.legend(
+    fontsize=8,
+    ncol=2
+)
+
+plt.grid(
+    alpha=0.3
+)
+
+plt.show()
+
+
+# ============================================================
+# 29. MEAN ROC CURVES
+# ============================================================
+
+def interpolate_mean_roc(
+    fpr_list,
+    tpr_list
+):
+
+    mean_fpr = np.linspace(
+        0,
+        1,
+        1000
+    )
+
+    interpolated_tprs = []
+
+    for fpr, tpr in zip(
+        fpr_list,
+        tpr_list
+    ):
+
+        interp_tpr = np.interp(
+            mean_fpr,
+            fpr,
+            tpr
+        )
+
+        interp_tpr[0] = 0.0
+
+        interpolated_tprs.append(
+            interp_tpr
+        )
+
+    interpolated_tprs = np.array(
+        interpolated_tprs
+    )
+
+    mean_tpr = np.mean(
+        interpolated_tprs,
+        axis=0
+    )
+
+    sd_tpr = np.std(
+        interpolated_tprs,
+        axis=0,
+        ddof=1
+    )
+
+    mean_tpr[-1] = 1.0
+
+    return (
+        mean_fpr,
+        mean_tpr,
+        sd_tpr
+    )
+
+
+# ------------------------------------------------------------
+# Training
+# ------------------------------------------------------------
+
+train_fprs = [
+
+    result["train_fpr"]
+
+    for result in all_results
+]
+
+train_tprs = [
+
+    result["train_tpr"]
+
+    for result in all_results
+]
+
+
+mean_train_fpr, mean_train_tpr, sd_train_tpr = (
+    interpolate_mean_roc(
+        train_fprs,
+        train_tprs
+    )
+)
+
+
+# ------------------------------------------------------------
+# Validation
+# ------------------------------------------------------------
+
+val_fprs = [
+
+    result["val_fpr"]
+
+    for result in all_results
+]
+
+val_tprs = [
+
+    result["val_tpr"]
+
+    for result in all_results
+]
+
+
+mean_val_fpr, mean_val_tpr, sd_val_tpr = (
+    interpolate_mean_roc(
+        val_fprs,
+        val_tprs
+    )
+)
+
+
+# ------------------------------------------------------------
+# Testing
+# ------------------------------------------------------------
+
+test_fprs = [
+
+    result["test_fpr"]
+
+    for result in all_results
+]
+
+test_tprs = [
+
+    result["test_tpr"]
+
+    for result in all_results
+]
+
+
+mean_test_fpr, mean_test_tpr, sd_test_tpr = (
+    interpolate_mean_roc(
+        test_fprs,
+        test_tprs
+    )
+)
+
+
+# ============================================================
+# 30. PLOT MEAN ± SD ROC CURVES
+# ============================================================
+
+plt.figure(
+    figsize=(10, 7)
+)
+
+# Training
+
+plt.plot(
+    mean_train_fpr,
+    mean_train_tpr,
+    linewidth=2,
+    label="Training Mean ROC"
+)
+
+plt.fill_between(
+    mean_train_fpr,
+    np.maximum(
+        mean_train_tpr - sd_train_tpr,
+        0
+    ),
+    np.minimum(
+        mean_train_tpr + sd_train_tpr,
+        1
+    ),
+    alpha=0.15
+)
+
+
+# Validation
+
+plt.plot(
+    mean_val_fpr,
+    mean_val_tpr,
+    linewidth=2,
+    label="Validation Mean ROC"
+)
+
+plt.fill_between(
+    mean_val_fpr,
+    np.maximum(
+        mean_val_tpr - sd_val_tpr,
+        0
+    ),
+    np.minimum(
+        mean_val_tpr + sd_val_tpr,
+        1
+    ),
+    alpha=0.15
+)
+
+
+# Testing
+
+plt.plot(
+    mean_test_fpr,
+    mean_test_tpr,
+    linewidth=2,
+    label="Testing Mean ROC"
+)
+
+plt.fill_between(
+    mean_test_fpr,
+    np.maximum(
+        mean_test_tpr - sd_test_tpr,
+        0
+    ),
+    np.minimum(
+        mean_test_tpr + sd_test_tpr,
+        1
+    ),
+    alpha=0.15
+)
+
+
+plt.plot(
+    [0, 1],
+    [0, 1],
+    linestyle=":"
+)
+
+
+plt.xlabel(
+    "False Positive Rate"
+)
+
+plt.ylabel(
+    "True Positive Rate"
+)
+
+plt.title(
+    "Mean ± SD ROC Curves - Five Seeds"
+)
+
+plt.legend()
+
+plt.grid(
+    alpha=0.3
+)
+
+plt.show()
+
+
+# ============================================================
+# 31. FINAL SUMMARY
+# ============================================================
+
+print("\n")
+print("=" * 100)
+print("FINAL EXPERIMENT SUMMARY")
+print("=" * 100)
+
+print(
+    "\nArchitecture:"
+)
+
+print(
+    "EfficientNet-B0 → 1280 features → "
+    "Dropout(0.2) → Linear(1280→1) → "
+    "Sigmoid (evaluation)"
+)
+
+print(
+    f"\nSeeds: {SEEDS}"
+)
+
+print(
+    f"Epochs per seed: {EPOCHS}"
+)
+
+print(
+    f"Batch size: {BATCH_SIZE}"
+)
+
+print(
+    f"Learning rate: {LEARNING_RATE}"
+)
+
+print(
+    f"\nTotal experiment time: "
+    f"{overall_time / 3600:.2f} hours"
+)
+
+print(
+    "\nMean ± SD results are shown above."
+)
+
+print(
+    "\nExperiment completed successfully."
+)
